@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvestmentManagerApi.Data",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvestmentManagerApi.Shared", "InvestmentManagerApi.Shared\InvestmentManagerApi.Shared.csproj", "{DF5A7DFD-7958-4AC3-B67A-AE91B1BFA3E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvestmentManager.Business", "InvestmentManager.Business\InvestmentManager.Business.csproj", "{B8F03BE8-8FEB-40DB-8CCE-A7896774622C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvestmentManagerApi.Business", "InvestmentManager.Business\InvestmentManagerApi.Business.csproj", "{B8F03BE8-8FEB-40DB-8CCE-A7896774622C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

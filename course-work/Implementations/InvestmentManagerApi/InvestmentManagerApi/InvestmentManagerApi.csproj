@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\InvestmentManager.Business\InvestmentManagerApi.Business.csproj" />
     <ProjectReference Include="..\InvestmentManagerApi.Data\InvestmentManagerApi.Data.csproj" />
   </ItemGroup>
 
