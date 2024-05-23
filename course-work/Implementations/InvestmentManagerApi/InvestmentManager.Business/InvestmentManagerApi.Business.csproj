@@ -7,7 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Interfaces\" />
+    <Folder Include="Requests\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\InvestmentManagerApi.Data\InvestmentManagerApi.Data.csproj" />
+    <ProjectReference Include="..\InvestmentManagerApi.Shared\InvestmentManagerApi.Shared.csproj" />
   </ItemGroup>
 
 </Project>

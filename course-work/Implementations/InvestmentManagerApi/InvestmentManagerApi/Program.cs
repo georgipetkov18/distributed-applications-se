@@ -1,4 +1,8 @@
+using InvestmentManagerApi.Business;
+using InvestmentManagerApi.Business.Interfaces;
 using InvestmentManagerApi.Data;
+using InvestmentManagerApi.Data.Repositories;
+using InvestmentManagerApi.Data.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +16,11 @@ builder.Services.AddSwaggerGen();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnectionString");
 builder.Services.AddDbContext<InvestmentManagerDbContext>(options => options.UseSqlServer(connectionString));
+
+builder.Services.AddScoped<DbContext, InvestmentManagerDbContext>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IEtfRepository, EtfRepository>();
+builder.Services.AddScoped<IEtfService, EtfService>();
 
 var app = builder.Build();
 

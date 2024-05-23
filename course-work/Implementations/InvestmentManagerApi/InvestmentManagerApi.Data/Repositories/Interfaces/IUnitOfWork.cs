@@ -6,6 +6,8 @@ namespace InvestmentManagerApi.Data.Repositories.Interfaces
     {
         DbContext Context { get; }
 
+        IEtfRepository Etfs { get; set; }
+
         Task<int> SaveChangesAsync();
     }
 }
