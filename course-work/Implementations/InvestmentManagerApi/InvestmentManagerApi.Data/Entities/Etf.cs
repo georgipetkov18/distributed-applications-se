@@ -8,7 +8,7 @@ namespace InvestmentManagerApi.Data.Entities
         required public decimal SingleValue { get; set; }
         required public EtfType Type { get; set; }
 
-        required public IEnumerable<Investment> Investments { get; set; }
+        public IEnumerable<Investment> Investments { get; set; }
 
         public Etf() 
         { 

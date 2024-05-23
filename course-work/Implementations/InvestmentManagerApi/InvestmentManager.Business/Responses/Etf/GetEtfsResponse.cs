@@ -1,4 +1,6 @@
-﻿namespace InvestmentManagerApi.Business.Responses.Etf
+﻿using InvestmentManagerApi.Business.Models;
+
+namespace InvestmentManagerApi.Business.Responses.Etf
 {
     public class GetEtfsResponse
     {

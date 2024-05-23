@@ -1,12 +1,11 @@
 ﻿using InvestmentManagerApi.Shared.Enums;
 
-namespace InvestmentManagerApi.Business.Responses.Etf
+namespace InvestmentManagerApi.Business.Requests
 {
-    public class EtfViewModel
+    public class AddEtfRequest
     {
         required public string Name { get; set; }
         required public decimal SingleValue { get; set; }
         required public EtfType Type { get; set; }
-        required public string TypeName { get; set; }
     }
 }

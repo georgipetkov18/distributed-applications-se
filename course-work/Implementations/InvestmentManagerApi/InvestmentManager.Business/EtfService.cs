@@ -1,4 +1,5 @@
 ﻿using InvestmentManagerApi.Business.Interfaces;
+using InvestmentManagerApi.Business.Requests;
 using InvestmentManagerApi.Business.Responses.Etf;
 using InvestmentManagerApi.Data.Repositories.Interfaces;
 
@@ -30,6 +31,21 @@ namespace InvestmentManagerApi.Business
             }
 
             return response;
+        }
+
+        public async Task CreateEtfAsync(AddEtfRequest request)
+        {
+            _unitOfWork.Etfs.Insert(new()
+            {
+                Id = Guid.NewGuid(),
+                Name = request.Name,
+                SingleValue= request.SingleValue,
+                Type = request.Type,
+                CreatedOn = DateTime.UtcNow,
+                UpdatedOn = DateTime.UtcNow,
+                IsActivated = true
+            });
+            await _unitOfWork.SaveChangesAsync();
         }
     }
 }

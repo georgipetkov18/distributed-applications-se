@@ -1,4 +1,5 @@
 ﻿using InvestmentManagerApi.Business.Interfaces;
+using InvestmentManagerApi.Business.Requests;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InvestmentManagerApi.Controllers
@@ -18,6 +19,13 @@ namespace InvestmentManagerApi.Controllers
         public async Task<IActionResult> Get()
         {
             return this.Ok(await this._etfService.GetEtfsAsync());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(AddEtfRequest model)
+        {
+            await this._etfService.CreateEtfAsync(model);
+            return this.Ok();
         }
     }
 }
