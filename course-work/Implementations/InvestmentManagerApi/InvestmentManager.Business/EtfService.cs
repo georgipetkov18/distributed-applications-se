@@ -12,6 +12,7 @@ namespace InvestmentManagerApi.Business
         {
             this._unitOfWork = unitOfWork;
         }
+
         public async Task<GetEtfsResponse> GetEtfsAsync()
         {
             var response = new GetEtfsResponse() { Etfs = new() };

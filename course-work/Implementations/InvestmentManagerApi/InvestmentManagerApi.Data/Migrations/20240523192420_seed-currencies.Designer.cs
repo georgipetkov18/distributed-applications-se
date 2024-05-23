@@ -4,6 +4,7 @@ using InvestmentManagerApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InvestmentManagerApi.Data.Migrations
 {
     [DbContext(typeof(InvestmentManagerDbContext))]
-    partial class InvestmentManagerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240523192420_seed-currencies")]
+    partial class seedcurrencies
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -12,5 +12,41 @@ namespace InvestmentManagerApi.Data
         public DbSet<Currency> Currencies { get; set; }
 
         public InvestmentManagerDbContext(DbContextOptions<InvestmentManagerDbContext> options) : base(options) { }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Currency>()
+                .HasData(new Currency
+                {
+                    Id = Guid.NewGuid(),
+                    Code = "EUR",
+                    Name = "Euro",
+                    ToEuroRate = 1,
+                    IsActivated = true,
+                    CreatedOn = DateTime.UtcNow,
+                    UpdatedOn = DateTime.UtcNow,
+                }, 
+                new Currency
+                {
+                    Id = Guid.NewGuid(),
+                    Code = "BGN",
+                    Name = "Lev",
+                    ToEuroRate = 1.95m,
+                    IsActivated = true,
+                    CreatedOn = DateTime.UtcNow,
+                    UpdatedOn = DateTime.UtcNow,
+                },
+                new Currency
+                {
+                    Id = Guid.NewGuid(),
+                    Code = "USD",
+                    Name = "American Dollar",
+                    ToEuroRate = 0.93m,
+                    IsActivated = true,
+                    CreatedOn = DateTime.UtcNow,
+                    UpdatedOn = DateTime.UtcNow,
+                });
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

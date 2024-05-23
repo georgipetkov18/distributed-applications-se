@@ -7,6 +7,7 @@ namespace InvestmentManagerApi.Data.Repositories.Interfaces
         DbContext Context { get; }
 
         IEtfRepository Etfs { get; set; }
+        ICurrencyRepository Currencies { get; set; }
 
         Task<int> SaveChangesAsync();
     }

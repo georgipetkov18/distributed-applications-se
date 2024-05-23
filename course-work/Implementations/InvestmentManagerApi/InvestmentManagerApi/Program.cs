@@ -21,6 +21,8 @@ builder.Services.AddScoped<DbContext, InvestmentManagerDbContext>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IEtfRepository, EtfRepository>();
 builder.Services.AddScoped<IEtfService, EtfService>();
+builder.Services.AddScoped<ICurrencyRepository, CurrencyRepository>();
+builder.Services.AddScoped<ICurrencyService, CurrencyService>();
 
 var app = builder.Build();
 
