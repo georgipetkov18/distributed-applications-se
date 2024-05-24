@@ -6,11 +6,11 @@ namespace InvestmentManagerApi.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]
-    public class CurrencyController : ControllerBase
+    public class CurrenciesController : ControllerBase
     {
         private readonly ICurrencyService _currencyService;
 
-        public CurrencyController(ICurrencyService currencyService)
+        public CurrenciesController(ICurrencyService currencyService)
         {
             this._currencyService = currencyService;
         }

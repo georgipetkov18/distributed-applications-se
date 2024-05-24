@@ -9,6 +9,9 @@ namespace InvestmentManagerApi.Data.Repositories
 
         public IEtfRepository Etfs { get; set; }
         public ICurrencyRepository Currencies { get; set; }
+        public IInvestmentRepository Investments { get; set; }
+        public IUserRepository Users { get; set; }
+        public IWalletRepository Wallets { get; set; }
 
         public DbContext Context 
         {
@@ -20,6 +23,9 @@ namespace InvestmentManagerApi.Data.Repositories
             this.context = context;
             this.Etfs = new EtfRepository(context);
             this.Currencies = new CurrencyRepository(context);
+            this.Investments = new InvestmentRepository(context);
+            this.Users = new UserRepository(context);
+            this.Wallets = new WalletRepository(context);
         }
 
         public void Dispose() => this.context?.Dispose();

@@ -6,7 +6,7 @@
         required public string LastName { get; set; }
         public int? Age { get; set; }
 
-        required public IEnumerable<Wallet> Wallets { get; set; }
+        public IEnumerable<Wallet> Wallets { get; set; }
 
         public User()
         {

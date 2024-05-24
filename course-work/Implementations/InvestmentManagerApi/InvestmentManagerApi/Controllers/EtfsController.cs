@@ -6,11 +6,11 @@ namespace InvestmentManagerApi.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]
-    public class EtfController : ControllerBase
+    public class EtfsController : ControllerBase
     {
         private readonly IEtfService _etfService;
 
-        public EtfController(IEtfService etfService)
+        public EtfsController(IEtfService etfService)
         {
             this._etfService = etfService;
         }
