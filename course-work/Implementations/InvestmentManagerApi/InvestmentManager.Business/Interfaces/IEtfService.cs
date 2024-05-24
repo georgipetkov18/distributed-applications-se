@@ -6,6 +6,9 @@ namespace InvestmentManagerApi.Business.Interfaces
     public interface IEtfService
     {
         Task<GetEtfsResponse> GetEtfsAsync();
-        Task CreateEtfAsync(AddEtfRequest request);
+        Task<EtfResponse> GetEtfAsync(Guid id);
+        Task CreateEtfAsync(CreateUpdateEtfRequest request);
+        Task<EtfResponse> UpdateEtfAsync(Guid id, CreateUpdateEtfRequest request);
+        Task DeleteEtfAsync(Guid id);
     }
 }

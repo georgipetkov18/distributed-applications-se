@@ -1,9 +1,7 @@
-﻿using InvestmentManagerApi.Business.Models;
-
-namespace InvestmentManagerApi.Business.Responses.Etf
+﻿namespace InvestmentManagerApi.Business.Responses.Etf
 {
     public class GetEtfsResponse
     {
-        public List<EtfViewModel> Etfs { get; set; }
+        public List<EtfResponse> Etfs { get; set; }
     }
 }

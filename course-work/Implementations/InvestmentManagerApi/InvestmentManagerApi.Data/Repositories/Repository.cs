@@ -46,7 +46,7 @@ namespace InvestmentManagerApi.Data.Repositories
             }
         }
 
-        public void Delete(int id)
+        public void Delete(Guid id)
         {
             var entity = this.GetByIdAsync(id).Result;
             if (entity != null)
@@ -57,7 +57,9 @@ namespace InvestmentManagerApi.Data.Repositories
 
         public async Task<IEnumerable<T>> GetAllAsync(bool isActive = true) => await SoftDeleteQueryFilter(this.DbSet.AsQueryable(), isActive).ToListAsync();
 
-        public async Task<T> GetByIdAsync(int id, bool isActive = true) => await this.DbSet.FindAsync(id);
+        public async Task<T> GetByIdAsync(Guid id, bool isActive = true) => await this.DbSet.FindAsync(id);
+
+        public async Task<bool> ExistsAsync(Guid id, bool isActive = true) => await this.GetByIdAsync(id, isActive) != null;
 
         public void Insert(T entity)
         {
