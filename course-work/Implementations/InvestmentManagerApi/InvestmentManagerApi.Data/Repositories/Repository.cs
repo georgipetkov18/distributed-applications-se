@@ -17,18 +17,18 @@ namespace InvestmentManagerApi.Data.Repositories
             this.DbSet = this.Context.Set<T>();
         }
 
-        public void ActivateDeactivate(T entity)
+        public async Task ActivateDeactivate(T entity)
         {
             entity.IsActivated = !entity.IsActivated;
-            this.Update(entity);
+            await this.UpdateAsync(entity);
         }
 
-        public void ActivateDeactivate(int id)
+        public async Task ActivateDeactivate(int id)
         {
             var entity = this.DbSet.Find(id);
             if (entity != null)
             {
-                this.ActivateDeactivate(entity);
+                await this.ActivateDeactivate(entity);
             }
         }
 
@@ -77,19 +77,21 @@ namespace InvestmentManagerApi.Data.Repositories
             }
         }
 
-        public void Update(T entity, string excludeProperties = "")
+        public async Task UpdateAsync(T entity, string excludeProperties = "")
         {
-            entity.UpdatedOn = DateTime.UtcNow;
+            var originalEntity = await this.GetByIdAsync(entity.Id);
 
-            EntityEntry<T> entry = this.Context.Entry(entity);
-            if (entry.State == EntityState.Detached)
+            if (originalEntity == null)
             {
-                this.DbSet.Attach(entity);
+                throw new InvalidOperationException("Entity does not exist");
             }
 
-            entry.State = EntityState.Modified;
+            var entry = this.DbSet.Entry(originalEntity);
+            entity.CreatedOn = entry.Entity.CreatedOn;
+            entity.UpdatedOn = DateTime.UtcNow;
 
-            entry.Property("CreatedOn").IsModified = false;
+            entry.CurrentValues.SetValues(entity);
+            entry.State = EntityState.Modified;
 
             foreach (var excludeProperty in excludeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
             {
@@ -97,7 +99,7 @@ namespace InvestmentManagerApi.Data.Repositories
             }
         }
 
-        public virtual void Save(T entity)
+        public virtual async Task Save(T entity)
         {
             if (entity.Id == Guid.Empty)
             {
@@ -105,7 +107,7 @@ namespace InvestmentManagerApi.Data.Repositories
             }
             else
             {
-                this.Update(entity);
+                await this.UpdateAsync(entity);
             }
         }
 

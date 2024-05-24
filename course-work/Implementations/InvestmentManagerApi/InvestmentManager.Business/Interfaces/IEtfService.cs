@@ -7,7 +7,7 @@ namespace InvestmentManagerApi.Business.Interfaces
     {
         Task<GetEtfsResponse> GetEtfsAsync();
         Task<EtfResponse> GetEtfAsync(Guid id);
-        Task CreateEtfAsync(CreateUpdateEtfRequest request);
+        Task<EtfResponse> CreateEtfAsync(CreateUpdateEtfRequest request);
         Task<EtfResponse> UpdateEtfAsync(Guid id, CreateUpdateEtfRequest request);
         Task DeleteEtfAsync(Guid id);
     }

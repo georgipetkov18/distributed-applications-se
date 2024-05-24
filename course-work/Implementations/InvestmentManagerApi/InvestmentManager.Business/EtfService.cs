@@ -1,6 +1,7 @@
 ﻿using InvestmentManagerApi.Business.Interfaces;
 using InvestmentManagerApi.Business.Requests;
 using InvestmentManagerApi.Business.Responses.Etf;
+using InvestmentManagerApi.Data.Entities;
 using InvestmentManagerApi.Data.Repositories.Interfaces;
 using InvestmentManagerApi.Shared.Exceptions;
 
@@ -37,7 +38,7 @@ namespace InvestmentManagerApi.Business
 
         public async Task<EtfResponse> GetEtfAsync(Guid id)
         {
-            var etf = await _unitOfWork.Etfs.GetByIdAsync(id) ?? throw new NotFoundException("Etf does not exist");
+            var etf = await _unitOfWork.Etfs.GetByIdAsync(id) ?? throw new NotFoundException();
             return new EtfResponse
             {
                 Id = etf.Id,
@@ -48,29 +49,32 @@ namespace InvestmentManagerApi.Business
             };
         }
 
-        public async Task CreateEtfAsync(CreateUpdateEtfRequest request)
+        public async Task<EtfResponse> CreateEtfAsync(CreateUpdateEtfRequest request)
         {
-            this._unitOfWork.Etfs.Insert(new()
+            var etfEntity = new Etf
             {
                 Id = Guid.NewGuid(),
                 Name = request.Name,
-                SingleValue= request.SingleValue,
+                SingleValue = request.SingleValue,
                 Type = request.Type,
                 CreatedOn = DateTime.UtcNow,
                 UpdatedOn = DateTime.UtcNow,
                 IsActivated = true
-            });
+            };
+
+            this._unitOfWork.Etfs.Insert(etfEntity);
             await _unitOfWork.SaveChangesAsync();
+
+            return EtfResponse.FromEntity(etfEntity);
         }
 
         public async Task<EtfResponse> UpdateEtfAsync(Guid id, CreateUpdateEtfRequest request)
         {
             if (!await this._unitOfWork.Etfs.ExistsAsync(id))
             {
-                throw new NotFoundException("Etf does not exist");
+                throw new NotFoundException();
             }
-
-            this._unitOfWork.Etfs.Update(new()
+            var etfEntity = new Etf
             {
                 Id = id,
                 Name = request.Name,
@@ -79,23 +83,17 @@ namespace InvestmentManagerApi.Business
                 CreatedOn = DateTime.UtcNow,
                 UpdatedOn = DateTime.UtcNow,
                 IsActivated = true
-            });
+            };
 
+            await this._unitOfWork.Etfs.UpdateAsync(etfEntity);
             await this._unitOfWork.SaveChangesAsync();
 
-            return new EtfResponse
-            {
-                Id = id,
-                Name = request.Name,
-                SingleValue = request.SingleValue,
-                Type = request.Type,
-                TypeName = request.Type.ToString(),
-            };
+            return EtfResponse.FromEntity(etfEntity);
         }
 
         public async Task DeleteEtfAsync(Guid id)
         {
-            var etf = await _unitOfWork.Etfs.GetByIdAsync(id) ?? throw new NotFoundException("Etf does not exist");
+            var etf = await _unitOfWork.Etfs.GetByIdAsync(id) ?? throw new NotFoundException();
             _unitOfWork.Etfs.Delete(etf);
             await _unitOfWork.SaveChangesAsync();
         }

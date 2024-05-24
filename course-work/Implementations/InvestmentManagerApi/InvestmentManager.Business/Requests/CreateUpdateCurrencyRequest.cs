@@ -1,6 +1,6 @@
-﻿namespace InvestmentManagerApi.Business.Responses.Currency
+﻿namespace InvestmentManagerApi.Business.Requests
 {
-    public class CurrencyViewModel
+    public class CreateUpdateCurrencyRequest
     {
         required public string Code { get; set; }
         required public string Name { get; set; }

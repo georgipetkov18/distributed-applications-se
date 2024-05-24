@@ -7,15 +7,16 @@ namespace InvestmentManagerApi.Data.Repositories.Interfaces
         Task<IEnumerable<T>> GetAllAsync(bool isActive = true);
 
         Task<T> GetByIdAsync(Guid id, bool isActive = true);
+
         Task<bool> ExistsAsync(Guid id, bool isActive = true);
 
         void Insert(T entity);
 
-        void Update(T entity, string excludeProperties = "");
+        Task UpdateAsync(T entity, string excludeProperties = "");
 
-        void ActivateDeactivate(T entity);
+        Task ActivateDeactivate(T entity);
 
-        void ActivateDeactivate(int id);
+        Task ActivateDeactivate(int id);
 
         void Delete(T entity);
 

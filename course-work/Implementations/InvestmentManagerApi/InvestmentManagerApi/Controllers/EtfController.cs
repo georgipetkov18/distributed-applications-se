@@ -30,8 +30,7 @@ namespace InvestmentManagerApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(CreateUpdateEtfRequest model)
         {
-            await this._etfService.CreateEtfAsync(model);
-            return this.Ok();
+            return this.Ok(await this._etfService.CreateEtfAsync(model));
         }
 
         [HttpPut("{id}")]
