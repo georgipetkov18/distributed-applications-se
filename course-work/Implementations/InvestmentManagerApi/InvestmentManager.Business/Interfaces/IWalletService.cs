@@ -6,9 +6,9 @@ namespace InvestmentManagerApi.Business.Interfaces
     public interface IWalletService
     {
         Task<GetWalletsResponse> GetWalletsAsync();
-        Task<WalletResponse> GetWalletAsync(Guid id);
-        Task<WalletResponse> CreateWalletAsync(CreateUpdateWalletRequest request);
-        Task<WalletResponse> UpdateWalletAsync(Guid id, CreateUpdateWalletRequest request);
+        Task<WalletResponseDetailed> GetWalletAsync(Guid id);
+        Task<WalletResponseShort> CreateWalletAsync(CreateUpdateWalletRequest request);
+        Task<WalletResponseShort> UpdateWalletAsync(Guid id, CreateUpdateWalletRequest request);
         Task DeleteWalletAsync(Guid id);
     }
 }

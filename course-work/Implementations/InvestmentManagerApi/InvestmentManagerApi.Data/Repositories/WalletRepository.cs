@@ -6,7 +6,9 @@ namespace InvestmentManagerApi.Data.Repositories
 {
     public class WalletRepository : Repository<Wallet>, IWalletRepository
     {
-        public WalletRepository(DbContext context) : base(context)
+        private static List<string> includeProperties = new() { "User", "Currency" };
+
+        public WalletRepository(DbContext context) : base(context, includeProperties)
         {
         }
     }

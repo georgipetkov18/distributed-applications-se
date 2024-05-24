@@ -2,7 +2,7 @@
 {
     public class GetInvestmentsResponse
     {
-        public List<InvestmentResponse> Investments { get; set; }
+        public List<InvestmentResponseDetailed> Investments { get; set; }
 
     }
 }

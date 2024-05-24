@@ -45,13 +45,7 @@ namespace InvestmentManagerApi.Business
         public async Task<UserResponse> GetUserAsync(Guid id)
         {
             var user = await _unitOfWork.Users.GetByIdAsync(id) ?? throw new NotFoundException();
-            return new UserResponse
-            {
-                Id = user.Id,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Age = user.Age,
-            };
+            return UserResponse.FromEntity(user);
         }
 
         public async Task<GetUsersResponse> GetUsersAsync()
@@ -61,13 +55,7 @@ namespace InvestmentManagerApi.Business
 
             foreach (var user in users)
             {
-                response.Users.Add(new()
-                {
-                    Id = user.Id,
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
-                    Age = user.Age,
-                });
+                response.Users.Add(UserResponse.FromEntity(user));
             }
 
             return response;

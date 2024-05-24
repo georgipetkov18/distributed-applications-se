@@ -17,7 +17,7 @@ namespace InvestmentManagerApi.Business
             this._unitOfWork = unitOfWork;
         }
 
-        public async Task<InvestmentResponse> CreateInvestmentAsync(CreateUpdateInvestmentRequest request)
+        public async Task<InvestmentResponseShort> CreateInvestmentAsync(CreateUpdateInvestmentRequest request)
         {
             var investmentEntity = new Investment
             {
@@ -33,7 +33,7 @@ namespace InvestmentManagerApi.Business
             this._unitOfWork.Investments.Insert(investmentEntity);
             await _unitOfWork.SaveChangesAsync();
 
-            return InvestmentResponse.FromEntity(investmentEntity);
+            return InvestmentResponseShort.FromEntity(investmentEntity);
         }
 
         public async Task DeleteInvestmentAsync(Guid id)
@@ -43,16 +43,10 @@ namespace InvestmentManagerApi.Business
             await _unitOfWork.SaveChangesAsync();
         }
 
-        public async Task<InvestmentResponse> GetInvestmentAsync(Guid id)
+        public async Task<InvestmentResponseDetailed> GetInvestmentAsync(Guid id)
         {
             var investment = await _unitOfWork.Investments.GetByIdAsync(id) ?? throw new NotFoundException();
-            return new InvestmentResponse
-            {
-                Id = investment.Id,
-                EtfId = investment.EtfId,
-                WalletId = investment.WalletId,
-                Quantity = investment.Quantity,
-            };
+            return InvestmentResponseDetailed.FromEntity(investment);
         }
 
         public async Task<GetInvestmentsResponse> GetInvestmentsAsync()
@@ -62,19 +56,13 @@ namespace InvestmentManagerApi.Business
 
             foreach (var investment in investments)
             {
-                response.Investments.Add(new()
-                {
-                    Id = investment.Id,
-                    WalletId = investment.WalletId,
-                    EtfId = investment.EtfId,
-                    Quantity = investment.Quantity,
-                });
+                response.Investments.Add(InvestmentResponseDetailed.FromEntity(investment));
             }
 
             return response;
         }
 
-        public async Task<InvestmentResponse> UpdateInvestmentAsync(Guid id, CreateUpdateInvestmentRequest request)
+        public async Task<InvestmentResponseShort> UpdateInvestmentAsync(Guid id, CreateUpdateInvestmentRequest request)
         {
             if (!await this._unitOfWork.Investments.ExistsAsync(id))
             {
@@ -93,7 +81,7 @@ namespace InvestmentManagerApi.Business
 
             await this._unitOfWork.Investments.UpdateAsync(investmentEntity);
             await this._unitOfWork.SaveChangesAsync();
-            return InvestmentResponse.FromEntity(investmentEntity);
+            return InvestmentResponseShort.FromEntity(investmentEntity);
         }
     }
 }

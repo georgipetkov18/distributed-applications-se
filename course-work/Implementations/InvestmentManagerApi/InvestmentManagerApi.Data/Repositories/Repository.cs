@@ -7,6 +7,8 @@ namespace InvestmentManagerApi.Data.Repositories
 {
     public class Repository<T> : IRepository<T> where T : BaseEntity
     {
+        private readonly List<string> propertiesToInclude;
+
         protected DbSet<T> DbSet { get; set; }
 
         protected DbContext Context { get; set; }
@@ -15,6 +17,12 @@ namespace InvestmentManagerApi.Data.Repositories
         {
             this.Context = context ?? throw new ArgumentNullException(nameof(context), "DbContext argument must be initialized");
             this.DbSet = this.Context.Set<T>();
+            this.propertiesToInclude = new List<string>();
+        }
+
+        public Repository(DbContext context, List<string> propertiesToInclude) : this(context)
+        {
+            this.propertiesToInclude = propertiesToInclude;
         }
 
         public async Task ActivateDeactivate(T entity)
@@ -55,9 +63,30 @@ namespace InvestmentManagerApi.Data.Repositories
             }
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync(bool isActive = true) => await SoftDeleteQueryFilter(this.DbSet.AsQueryable(), isActive).ToListAsync();
+        public async Task<IEnumerable<T>> GetAllAsync(bool isActive = true)
 
-        public async Task<T> GetByIdAsync(Guid id, bool isActive = true) => await this.DbSet.FindAsync(id);
+        {
+            IQueryable<T> query = this.DbSet.AsQueryable<T>();
+
+            foreach (var prop in this.propertiesToInclude)
+            {
+                query = query.Include(prop);
+            }
+
+            return await SoftDeleteQueryFilter(query, isActive).ToListAsync();
+        }
+
+        public async Task<T> GetByIdAsync(Guid id, bool isActive = true)
+        {
+            IQueryable<T> query = this.DbSet.AsQueryable<T>();
+
+            foreach (var prop in this.propertiesToInclude)
+            {
+                query = query.Include(prop);
+            }
+
+            return await query.FirstOrDefaultAsync(x => x.Id == id);
+        }
 
         public async Task<bool> ExistsAsync(Guid id, bool isActive = true) => await this.GetByIdAsync(id, isActive) != null;
 

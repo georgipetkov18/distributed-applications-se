@@ -16,7 +16,7 @@ namespace InvestmentManagerApi.Business
             this._unitOfWork = unitOfWork;
         }
 
-        public async Task<WalletResponse> CreateWalletAsync(CreateUpdateWalletRequest request)
+        public async Task<WalletResponseShort> CreateWalletAsync(CreateUpdateWalletRequest request)
         {
             var walletEntity = new Wallet
             {
@@ -31,7 +31,7 @@ namespace InvestmentManagerApi.Business
             this._unitOfWork.Wallets.Insert(walletEntity);
             await _unitOfWork.SaveChangesAsync();
 
-            return WalletResponse.FromEntity(walletEntity);
+            return WalletResponseShort.FromEntity(walletEntity);
         }
 
         public async Task DeleteWalletAsync(Guid id)
@@ -41,15 +41,10 @@ namespace InvestmentManagerApi.Business
             await _unitOfWork.SaveChangesAsync();
         }
 
-        public async Task<WalletResponse> GetWalletAsync(Guid id)
+        public async Task<WalletResponseDetailed> GetWalletAsync(Guid id)
         {
             var wallet = await _unitOfWork.Wallets.GetByIdAsync(id) ?? throw new NotFoundException();
-            return new WalletResponse
-            {
-                Id = wallet.Id,
-                CurrencyId = wallet.CurrencyId,
-                UserId = wallet.UserId,
-            };
+            return WalletResponseDetailed.FromEntity(wallet);
         }
 
         public async Task<GetWalletsResponse> GetWalletsAsync()
@@ -59,18 +54,13 @@ namespace InvestmentManagerApi.Business
 
             foreach (var wallet in wallets)
             {
-                response.Wallets.Add(new()
-                {
-                    Id = wallet.Id,
-                    UserId = wallet.UserId,
-                    CurrencyId = wallet.CurrencyId,
-                });
+                response.Wallets.Add(WalletResponseDetailed.FromEntity(wallet));
             }
 
             return response;
         }
 
-        public async Task<WalletResponse> UpdateWalletAsync(Guid id, CreateUpdateWalletRequest request)
+        public async Task<WalletResponseShort> UpdateWalletAsync(Guid id, CreateUpdateWalletRequest request)
         {
             if (!await this._unitOfWork.Wallets.ExistsAsync(id))
             {
@@ -88,7 +78,7 @@ namespace InvestmentManagerApi.Business
 
             await this._unitOfWork.Wallets.UpdateAsync(walletEntity);
             await this._unitOfWork.SaveChangesAsync();
-            return WalletResponse.FromEntity(walletEntity);
+            return WalletResponseShort.FromEntity(walletEntity);
         }
     }
 }

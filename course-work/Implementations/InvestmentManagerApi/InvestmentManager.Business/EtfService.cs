@@ -23,14 +23,7 @@ namespace InvestmentManagerApi.Business
 
             foreach (var etf in etfs)
             {
-                response.Etfs.Add(new()
-                {
-                    Id = etf.Id,
-                    Name = etf.Name,
-                    SingleValue = etf.SingleValue,
-                    Type = etf.Type,
-                    TypeName = etf.Type.ToString(),
-                });
+                response.Etfs.Add(EtfResponse.FromEntity(etf));
             }
 
             return response;
@@ -39,14 +32,7 @@ namespace InvestmentManagerApi.Business
         public async Task<EtfResponse> GetEtfAsync(Guid id)
         {
             var etf = await _unitOfWork.Etfs.GetByIdAsync(id) ?? throw new NotFoundException();
-            return new EtfResponse
-            {
-                Id = etf.Id,
-                Name = etf.Name,
-                SingleValue = etf.SingleValue,
-                Type = etf.Type,
-                TypeName = etf.Type.ToString(),
-            };
+            return EtfResponse.FromEntity(etf);
         }
 
         public async Task<EtfResponse> CreateEtfAsync(CreateUpdateEtfRequest request)

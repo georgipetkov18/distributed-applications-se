@@ -49,13 +49,7 @@ namespace InvestmentManagerApi.Business
 
             foreach (var currency in currencies)
             {
-                response.Currencies.Add(new()
-                {
-                    Id = currency.Id,
-                    Code = currency.Code,
-                    Name = currency.Name,
-                    ToEuroRate = currency.ToEuroRate,
-                });
+                response.Currencies.Add(CurrencyResponse.FromEntity(currency));
             }
 
             return response;
@@ -64,13 +58,7 @@ namespace InvestmentManagerApi.Business
         public async Task<CurrencyResponse> GetCurrencyAsync(Guid id)
         {
             var currency = await _unitOfWork.Currencies.GetByIdAsync(id) ?? throw new NotFoundException();
-            return new CurrencyResponse
-            {
-                Id = currency.Id,
-                Code = currency.Code,
-                Name = currency.Name,
-                ToEuroRate = currency.ToEuroRate,
-            };
+            return CurrencyResponse.FromEntity(currency);
         }
 
         public async Task<CurrencyResponse> UpdateCurrencyAsync(Guid id, CreateUpdateCurrencyRequest request)
