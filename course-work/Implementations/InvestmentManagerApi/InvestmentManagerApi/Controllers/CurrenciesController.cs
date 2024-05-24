@@ -15,11 +15,12 @@ namespace InvestmentManagerApi.Controllers
             this._currencyService = currencyService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Get()
+        [HttpGet("page/{page?}")]
+        public async Task<IActionResult> Get(int page = 1)
         {
-            return this.Ok(await this._currencyService.GetCurrenciesAsync());
+            return this.Ok(await this._currencyService.GetCurrenciesAsync(page));
         }
+
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)

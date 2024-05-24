@@ -15,10 +15,10 @@ namespace InvestmentManagerApi.Controllers
             this._etfService = etfService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Get()
+        [HttpGet("page/{page?}")]
+        public async Task<IActionResult> Get(int page = 1)
         {
-            return this.Ok(await this._etfService.GetEtfsAsync());
+            return this.Ok(await this._etfService.GetEtfsAsync(page));
         }
 
         [HttpGet("{id}")]

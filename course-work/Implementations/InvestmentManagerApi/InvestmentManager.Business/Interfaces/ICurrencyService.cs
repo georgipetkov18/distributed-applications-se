@@ -5,7 +5,7 @@ namespace InvestmentManagerApi.Business.Interfaces
 {
     public interface ICurrencyService
     {
-        Task<GetCurrenciesResponse> GetCurrenciesAsync();
+        Task<GetCurrenciesResponse> GetCurrenciesAsync(int page);
         Task<CurrencyResponse> GetCurrencyAsync(Guid id);
         Task<CurrencyResponse> CreateCurrencyAsync(CreateUpdateCurrencyRequest request);
         Task<CurrencyResponse> UpdateCurrencyAsync(Guid id, CreateUpdateCurrencyRequest request);

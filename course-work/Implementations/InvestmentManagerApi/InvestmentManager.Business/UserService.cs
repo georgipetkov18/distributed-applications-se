@@ -3,6 +3,7 @@ using InvestmentManagerApi.Business.Requests;
 using InvestmentManagerApi.Business.Responses.User;
 using InvestmentManagerApi.Data.Entities;
 using InvestmentManagerApi.Data.Repositories.Interfaces;
+using InvestmentManagerApi.Shared;
 using InvestmentManagerApi.Shared.Exceptions;
 
 namespace InvestmentManagerApi.Business
@@ -48,10 +49,10 @@ namespace InvestmentManagerApi.Business
             return UserResponse.FromEntity(user);
         }
 
-        public async Task<GetUsersResponse> GetUsersAsync()
+        public async Task<GetUsersResponse> GetUsersAsync(int page)
         {
             var response = new GetUsersResponse() { Users = new() };
-            var users = await _unitOfWork.Users.GetAllAsync();
+            var users = await _unitOfWork.Users.GetAllAsync((page - 1) * Constants.DEFAULT_PAGE_SIZE, Constants.DEFAULT_PAGE_SIZE);
 
             foreach (var user in users)
             {

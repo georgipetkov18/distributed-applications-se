@@ -4,7 +4,7 @@ namespace InvestmentManagerApi.Data.Repositories.Interfaces
 {
     public interface IRepository<T> where T : BaseEntity
     {
-        Task<IEnumerable<T>> GetAllAsync(bool isActive = true);
+        Task<IEnumerable<T>> GetAllAsync(int skipCount, int takeCount, bool isActive = true);
 
         Task<T> GetByIdAsync(Guid id, bool isActive = true);
 

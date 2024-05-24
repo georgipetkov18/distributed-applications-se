@@ -1,8 +1,10 @@
-﻿using InvestmentManagerApi.Business.Interfaces;
+﻿using Azure;
+using InvestmentManagerApi.Business.Interfaces;
 using InvestmentManagerApi.Business.Requests;
 using InvestmentManagerApi.Business.Responses.Wallet;
 using InvestmentManagerApi.Data.Entities;
 using InvestmentManagerApi.Data.Repositories.Interfaces;
+using InvestmentManagerApi.Shared;
 using InvestmentManagerApi.Shared.Exceptions;
 
 namespace InvestmentManagerApi.Business
@@ -47,10 +49,10 @@ namespace InvestmentManagerApi.Business
             return WalletResponseDetailed.FromEntity(wallet);
         }
 
-        public async Task<GetWalletsResponse> GetWalletsAsync()
+        public async Task<GetWalletsResponse> GetWalletsAsync(int page)
         {
             var response = new GetWalletsResponse() { Wallets = new() };
-            var wallets = await _unitOfWork.Wallets.GetAllAsync();
+            var wallets = await _unitOfWork.Wallets.GetAllAsync((page - 1) * Constants.DEFAULT_PAGE_SIZE, Constants.DEFAULT_PAGE_SIZE);
 
             foreach (var wallet in wallets)
             {

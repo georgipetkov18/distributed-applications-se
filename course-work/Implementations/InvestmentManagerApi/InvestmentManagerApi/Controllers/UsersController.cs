@@ -15,10 +15,10 @@ namespace UserManagerApi.Controllers
             this._userService = userService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Get()
+        [HttpGet("page/{page?}")]
+        public async Task<IActionResult> Get(int page = 1)
         {
-            return this.Ok(await this._userService.GetUsersAsync());
+            return this.Ok(await this._userService.GetUsersAsync(page));
         }
 
         [HttpGet("{id}")]

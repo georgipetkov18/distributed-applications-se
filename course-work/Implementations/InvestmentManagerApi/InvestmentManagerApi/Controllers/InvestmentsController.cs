@@ -15,10 +15,10 @@ namespace InvestmentManagerApi.Controllers
             this._investmentService = investmentService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Get()
+        [HttpGet("page/{page?}")]
+        public async Task<IActionResult> Get(int page = 1)
         {
-            return this.Ok(await this._investmentService.GetInvestmentsAsync());
+            return this.Ok(await this._investmentService.GetInvestmentsAsync(page));
         }
 
         [HttpGet("{id}")]

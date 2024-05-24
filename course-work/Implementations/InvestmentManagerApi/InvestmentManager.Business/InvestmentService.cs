@@ -1,9 +1,9 @@
 ﻿using InvestmentManagerApi.Business.Interfaces;
 using InvestmentManagerApi.Business.Requests;
-using InvestmentManagerApi.Business.Responses.Currency;
 using InvestmentManagerApi.Business.Responses.Investment;
 using InvestmentManagerApi.Data.Entities;
 using InvestmentManagerApi.Data.Repositories.Interfaces;
+using InvestmentManagerApi.Shared;
 using InvestmentManagerApi.Shared.Exceptions;
 
 namespace InvestmentManagerApi.Business
@@ -49,10 +49,10 @@ namespace InvestmentManagerApi.Business
             return InvestmentResponseDetailed.FromEntity(investment);
         }
 
-        public async Task<GetInvestmentsResponse> GetInvestmentsAsync()
+        public async Task<GetInvestmentsResponse> GetInvestmentsAsync(int page)
         {
             var response = new GetInvestmentsResponse() { Investments = new() };
-            var investments = await _unitOfWork.Investments.GetAllAsync();
+            var investments = await _unitOfWork.Investments.GetAllAsync((page - 1) * Constants.DEFAULT_PAGE_SIZE, Constants.DEFAULT_PAGE_SIZE);
 
             foreach (var investment in investments)
             {

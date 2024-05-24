@@ -5,7 +5,7 @@ namespace InvestmentManagerApi.Business.Interfaces
 {
     public interface IInvestmentService
     {
-        Task<GetInvestmentsResponse> GetInvestmentsAsync();
+        Task<GetInvestmentsResponse> GetInvestmentsAsync(int page);
         Task<InvestmentResponseDetailed> GetInvestmentAsync(Guid id);
         Task<InvestmentResponseShort> CreateInvestmentAsync(CreateUpdateInvestmentRequest request);
         Task<InvestmentResponseShort> UpdateInvestmentAsync(Guid id, CreateUpdateInvestmentRequest request);

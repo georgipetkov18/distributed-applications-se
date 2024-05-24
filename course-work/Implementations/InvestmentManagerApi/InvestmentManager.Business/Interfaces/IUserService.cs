@@ -5,7 +5,7 @@ namespace InvestmentManagerApi.Business.Interfaces
 {
     public interface IUserService
     {
-        Task<GetUsersResponse> GetUsersAsync();
+        Task<GetUsersResponse> GetUsersAsync(int page);
         Task<UserResponse> GetUserAsync(Guid id);
         Task<UserResponse> CreateUserAsync(CreateUpdateUserRequest request);
         Task<UserResponse> UpdateUserAsync(Guid id, CreateUpdateUserRequest request);

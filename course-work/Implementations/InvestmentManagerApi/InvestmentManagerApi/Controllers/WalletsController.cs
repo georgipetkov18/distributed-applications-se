@@ -15,10 +15,10 @@ namespace WalletManagerApi.Controllers
             this._walletService = walletService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Get()
+        [HttpGet("page/{page?}")]
+        public async Task<IActionResult> Get(int page = 1)
         {
-            return this.Ok(await this._walletService.GetWalletsAsync());
+            return this.Ok(await this._walletService.GetWalletsAsync(page));
         }
 
         [HttpGet("{id}")]

@@ -3,6 +3,7 @@ using InvestmentManagerApi.Business.Requests;
 using InvestmentManagerApi.Business.Responses.Currency;
 using InvestmentManagerApi.Data.Entities;
 using InvestmentManagerApi.Data.Repositories.Interfaces;
+using InvestmentManagerApi.Shared;
 using InvestmentManagerApi.Shared.Exceptions;
 
 namespace InvestmentManagerApi.Business
@@ -42,10 +43,10 @@ namespace InvestmentManagerApi.Business
             await _unitOfWork.SaveChangesAsync();
         }
 
-        public async Task<GetCurrenciesResponse> GetCurrenciesAsync()
+        public async Task<GetCurrenciesResponse> GetCurrenciesAsync(int page)
         {
             var response = new GetCurrenciesResponse() { Currencies = new() };
-            var currencies = await _unitOfWork.Currencies.GetAllAsync();
+            var currencies = await _unitOfWork.Currencies.GetAllAsync((page - 1) * Constants.DEFAULT_PAGE_SIZE, Constants.DEFAULT_PAGE_SIZE);
 
             foreach (var currency in currencies)
             {
