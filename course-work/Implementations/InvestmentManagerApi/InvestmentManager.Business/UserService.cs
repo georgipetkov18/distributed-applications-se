@@ -5,6 +5,7 @@ using InvestmentManagerApi.Data.Entities;
 using InvestmentManagerApi.Data.Repositories.Interfaces;
 using InvestmentManagerApi.Shared;
 using InvestmentManagerApi.Shared.Exceptions;
+using InvestmentManagerApi.Shared.Utils;
 
 namespace InvestmentManagerApi.Business
 {
@@ -25,6 +26,8 @@ namespace InvestmentManagerApi.Business
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 Age = request.Age,
+                Email = request.Email,
+                Password = PasswordManager.HashPassword(request.Password),
                 CreatedOn = DateTime.UtcNow,
                 UpdatedOn = DateTime.UtcNow,
                 IsActivated = true
@@ -74,6 +77,8 @@ namespace InvestmentManagerApi.Business
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 Age = request.Age,
+                Email = request.Email,
+                Password = PasswordManager.HashPassword(request.Password),
                 CreatedOn = DateTime.UtcNow,
                 UpdatedOn = DateTime.UtcNow,
                 IsActivated = true,

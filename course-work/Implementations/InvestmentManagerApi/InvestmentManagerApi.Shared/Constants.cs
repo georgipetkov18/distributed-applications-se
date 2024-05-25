@@ -2,6 +2,6 @@
 {
     public static class Constants
     {
-        public const int DEFAULT_PAGE_SIZE = 2;
+        public const int DEFAULT_PAGE_SIZE = 10;
     }
 }

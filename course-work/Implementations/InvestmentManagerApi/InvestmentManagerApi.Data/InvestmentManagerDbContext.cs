@@ -1,4 +1,5 @@
 ﻿using InvestmentManagerApi.Data.Entities;
+using InvestmentManagerApi.Shared.Utils;
 using Microsoft.EntityFrameworkCore;
 
 namespace InvestmentManagerApi.Data
@@ -42,6 +43,20 @@ namespace InvestmentManagerApi.Data
                     Code = "USD",
                     Name = "American Dollar",
                     ToEuroRate = 0.93m,
+                    IsActivated = true,
+                    CreatedOn = DateTime.UtcNow,
+                    UpdatedOn = DateTime.UtcNow,
+                });
+
+            modelBuilder.Entity<User>()
+                .HasData(new User
+                {
+                    Id = Guid.NewGuid(),
+                    Email = "admin@admin.bg",
+                    FirstName = "Georgi",
+                    LastName = "Petkov",
+                    Password = PasswordManager.HashPassword("admin"),
+                    Age = 21,
                     IsActivated = true,
                     CreatedOn = DateTime.UtcNow,
                     UpdatedOn = DateTime.UtcNow,
