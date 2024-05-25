@@ -9,5 +9,19 @@ namespace InvestmentManagerApi.Data.Repositories
         public CurrencyRepository(DbContext context) : base(context)
         {
         }
+
+        public override IQueryable<Currency> PrepareGetAllQuery(string filter)
+        {
+            var baseQuery = base.PrepareGetAllQuery(filter);
+
+            if (filter == null)
+            {
+                return baseQuery;
+            }
+
+            return baseQuery.Where(x => 
+                x.Name.Contains(filter) ||
+                x.Code.Contains(filter));
+        }
     }
 }

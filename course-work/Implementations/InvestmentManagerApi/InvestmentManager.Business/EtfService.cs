@@ -1,5 +1,6 @@
 ﻿using Azure;
 using InvestmentManagerApi.Business.Interfaces;
+using InvestmentManagerApi.Business.Query;
 using InvestmentManagerApi.Business.Requests;
 using InvestmentManagerApi.Business.Responses.Etf;
 using InvestmentManagerApi.Data.Entities;
@@ -18,10 +19,15 @@ namespace InvestmentManagerApi.Business
             this._unitOfWork = unitOfWork;
         }
 
-        public async Task<GetEtfsResponse> GetEtfsAsync(int page)
+        public async Task<GetEtfsResponse> GetEtfsAsync(FilterParams parameters)
         {
             var response = new GetEtfsResponse() { Etfs = new() };
-            var etfs = await _unitOfWork.Etfs.GetAllAsync((page - 1) * Constants.DEFAULT_PAGE_SIZE, Constants.DEFAULT_PAGE_SIZE);
+            var etfs = await _unitOfWork.Etfs
+                .GetAllAsync(
+                    skipCount: (parameters.Page - 1) * Constants.DEFAULT_PAGE_SIZE,
+                    takeCount: Constants.DEFAULT_PAGE_SIZE,
+                    filter: parameters.Filter
+                );
 
             foreach (var etf in etfs)
             {

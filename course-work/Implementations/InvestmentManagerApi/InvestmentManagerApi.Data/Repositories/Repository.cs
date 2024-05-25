@@ -63,14 +63,9 @@ namespace InvestmentManagerApi.Data.Repositories
             }
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync(int skipCount, int takeCount, bool isActive = true)
+        public async Task<IEnumerable<T>> GetAllAsync(int skipCount, int takeCount, string filter = null, bool isActive = true)
         {
-            IQueryable<T> query = this.DbSet.AsQueryable<T>();
-
-            foreach (var prop in this.propertiesToInclude)
-            {
-                query = query.Include(prop);
-            }
+            IQueryable<T> query = this.PrepareGetAllQuery(filter);
 
             return await SoftDeleteQueryFilter(query, isActive)
                 .Skip(skipCount)
@@ -80,12 +75,7 @@ namespace InvestmentManagerApi.Data.Repositories
 
         public async Task<T> GetByIdAsync(Guid id, bool isActive = true)
         {
-            IQueryable<T> query = this.DbSet.AsQueryable<T>();
-
-            foreach (var prop in this.propertiesToInclude)
-            {
-                query = query.Include(prop);
-            }
+            IQueryable<T> query = this.PrepareGetAllQuery();
 
             return await query.FirstOrDefaultAsync(x => x.Id == id);
         }
@@ -140,6 +130,18 @@ namespace InvestmentManagerApi.Data.Repositories
             {
                 await this.UpdateAsync(entity);
             }
+        }
+
+        public virtual IQueryable<T> PrepareGetAllQuery(string filter = null)
+        {
+            IQueryable<T> query = this.DbSet.AsQueryable<T>();
+
+            foreach (var prop in this.propertiesToInclude)
+            {
+                query = query.Include(prop);
+            }
+
+            return query;
         }
 
         protected static IQueryable<T> SoftDeleteQueryFilter(IQueryable<T> query, bool? isActive)

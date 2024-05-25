@@ -1,4 +1,5 @@
 ﻿using InvestmentManagerApi.Business.Interfaces;
+using InvestmentManagerApi.Business.Query;
 using InvestmentManagerApi.Business.Requests;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,10 +19,10 @@ namespace InvestmentManagerApi.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("page/{page?}")]
-        public async Task<IActionResult> Get(int page = 1)
+        [HttpGet]
+        public async Task<IActionResult> Get([FromQuery]FilterParams parameters)
         {
-            return this.Ok(await this._currencyService.GetCurrenciesAsync(page));
+            return this.Ok(await this._currencyService.GetCurrenciesAsync(parameters));
         }
 
 

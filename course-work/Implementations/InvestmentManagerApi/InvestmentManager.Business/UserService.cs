@@ -1,4 +1,5 @@
 ﻿using InvestmentManagerApi.Business.Interfaces;
+using InvestmentManagerApi.Business.Query;
 using InvestmentManagerApi.Business.Requests;
 using InvestmentManagerApi.Business.Responses.User;
 using InvestmentManagerApi.Data.Entities;
@@ -52,10 +53,15 @@ namespace InvestmentManagerApi.Business
             return UserResponse.FromEntity(user);
         }
 
-        public async Task<GetUsersResponse> GetUsersAsync(int page)
+        public async Task<GetUsersResponse> GetUsersAsync(FilterParams parameters)
         {
             var response = new GetUsersResponse() { Users = new() };
-            var users = await _unitOfWork.Users.GetAllAsync((page - 1) * Constants.DEFAULT_PAGE_SIZE, Constants.DEFAULT_PAGE_SIZE);
+            var users = await _unitOfWork.Users
+                .GetAllAsync(
+                    skipCount: (parameters.Page - 1) * Constants.DEFAULT_PAGE_SIZE,
+                    takeCount: Constants.DEFAULT_PAGE_SIZE,
+                    filter: parameters.Filter
+                );
 
             foreach (var user in users)
             {

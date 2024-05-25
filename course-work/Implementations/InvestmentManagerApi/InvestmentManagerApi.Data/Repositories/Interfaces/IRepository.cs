@@ -4,7 +4,7 @@ namespace InvestmentManagerApi.Data.Repositories.Interfaces
 {
     public interface IRepository<T> where T : BaseEntity
     {
-        Task<IEnumerable<T>> GetAllAsync(int skipCount, int takeCount, bool isActive = true);
+        Task<IEnumerable<T>> GetAllAsync(int skipCount, int takeCount, string filter = null, bool isActive = true);
 
         Task<T> GetByIdAsync(Guid id, bool isActive = true);
 
@@ -21,5 +21,7 @@ namespace InvestmentManagerApi.Data.Repositories.Interfaces
         void Delete(T entity);
 
         void Delete(Guid id);
+
+        IQueryable<T> PrepareGetAllQuery(string filter);
     }
 }

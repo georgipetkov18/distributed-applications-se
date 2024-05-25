@@ -9,5 +9,18 @@ namespace InvestmentManagerApi.Data.Repositories
         public EtfRepository(DbContext context) : base(context)
         {
         }
+
+        public override IQueryable<Etf> PrepareGetAllQuery(string filter)
+        {
+            var baseQuery = base.PrepareGetAllQuery(filter);
+
+            if (filter == null)
+            {
+                return baseQuery;
+            }
+
+            return baseQuery.Where(x =>
+                x.Name.Contains(filter));
+        }
     }
 }
