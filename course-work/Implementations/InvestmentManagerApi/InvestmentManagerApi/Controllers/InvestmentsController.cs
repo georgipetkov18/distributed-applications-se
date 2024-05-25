@@ -1,9 +1,11 @@
 ﻿using InvestmentManagerApi.Business.Interfaces;
 using InvestmentManagerApi.Business.Requests;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InvestmentManagerApi.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]/[action]")]
     public class InvestmentsController : ControllerBase

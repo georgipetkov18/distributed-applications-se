@@ -1,9 +1,11 @@
 ﻿using InvestmentManagerApi.Business.Interfaces;
 using InvestmentManagerApi.Business.Requests;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InvestmentManagerApi.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]/[action]")]
     public class CurrenciesController : ControllerBase
@@ -15,6 +17,7 @@ namespace InvestmentManagerApi.Controllers
             this._currencyService = currencyService;
         }
 
+        [AllowAnonymous]
         [HttpGet("page/{page?}")]
         public async Task<IActionResult> Get(int page = 1)
         {
@@ -22,6 +25,7 @@ namespace InvestmentManagerApi.Controllers
         }
 
 
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
         {

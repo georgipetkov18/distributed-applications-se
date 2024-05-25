@@ -1,9 +1,11 @@
 ﻿using InvestmentManagerApi.Business.Interfaces;
 using InvestmentManagerApi.Business.Requests;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace UserManagerApi.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]/[action]")]
     public class UsersController : ControllerBase
@@ -15,18 +17,21 @@ namespace UserManagerApi.Controllers
             this._userService = userService;
         }
 
+        [AllowAnonymous]
         [HttpGet("page/{page?}")]
         public async Task<IActionResult> Get(int page = 1)
         {
             return this.Ok(await this._userService.GetUsersAsync(page));
         }
 
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
         {
             return this.Ok(await this._userService.GetUserAsync(id));
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Add(CreateUpdateUserRequest model)
         {
