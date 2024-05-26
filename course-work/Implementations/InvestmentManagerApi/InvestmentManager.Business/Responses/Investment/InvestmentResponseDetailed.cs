@@ -1,4 +1,5 @@
-﻿using InvestmentManagerApi.Business.Responses.Etf;
+﻿using InvestmentManagerApi.Business.Responses.Currency;
+using InvestmentManagerApi.Business.Responses.Etf;
 using InvestmentManagerApi.Business.Responses.Wallet;
 
 namespace InvestmentManagerApi.Business.Responses.Investment
@@ -8,6 +9,7 @@ namespace InvestmentManagerApi.Business.Responses.Investment
         required public Guid Id { get; set; }
         required public WalletResponseShort Wallet { get; set; }
         required public EtfResponse Etf { get; set; }
+        required public CurrencyResponse WalletCurrency { get; set; }
         required public decimal Quantity { get; set; }
 
         public static InvestmentResponseDetailed FromEntity(Data.Entities.Investment investment)
@@ -18,6 +20,7 @@ namespace InvestmentManagerApi.Business.Responses.Investment
                 Wallet = WalletResponseShort.FromEntity(investment.Wallet),
                 Etf = EtfResponse.FromEntity(investment.Etf),
                 Quantity = investment.Quantity,
+                WalletCurrency = CurrencyResponse.FromEntity(investment.Wallet.Currency),
             };
         }
     }

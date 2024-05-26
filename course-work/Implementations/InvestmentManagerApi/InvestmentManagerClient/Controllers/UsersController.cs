@@ -1,5 +1,4 @@
 ﻿using InvestmentManagerApi.Business.Requests;
-using InvestmentManagerApi.Business.Responses.Auth;
 using InvestmentManagerApi.Business.Responses.User;
 using InvestmentManagerApi.Shared.Attributes;
 using InvestmentManagerApi.Shared.Utils;

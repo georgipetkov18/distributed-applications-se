@@ -1,4 +1,6 @@
-﻿<form asp-controller="Users" asp-action="Profile">
+﻿<a class="btn btn-primary mb-3" asp-controller="Wallets" asp-action="Mine">View wallets</a>
+
+<form asp-controller="Users" asp-action="Profile">
     <div class="form-group">
         <label for="firstName">First name</label>
         <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First name" required value="@SessionManager.User.Name.Split(' ')[0]">
