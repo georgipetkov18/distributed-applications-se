@@ -1,4 +1,5 @@
 ﻿using InvestmentManagerApi.Business.Responses.Etf;
+using InvestmentManagerApi.Shared.Attributes;
 using InvestmentManagerApi.Shared.Utils;
 using InvestmentManagerClient.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -37,6 +38,7 @@ namespace InvestmentManagerClient.Controllers
         }
 
         [HttpPost]
+        [AppAuthorize]
         public async Task<IActionResult> Delete(Guid etfId)
         {
             await RequestManager.DeleteAsync($"{_baseUri}/delete/{etfId}", true);

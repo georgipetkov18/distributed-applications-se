@@ -5,7 +5,6 @@ using InvestmentManagerApi.Shared.Attributes;
 using InvestmentManagerApi.Shared.Utils;
 using InvestmentManagerClient.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 
 namespace InvestmentManagerClient.Controllers
 {

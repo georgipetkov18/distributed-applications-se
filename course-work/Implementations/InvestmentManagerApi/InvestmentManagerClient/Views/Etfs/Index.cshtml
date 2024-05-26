@@ -32,15 +32,18 @@
                     <td>@Model.Etfs[i].Name</td>
                     <td>@Model.Etfs[i].SingleValue</td>
                     <td>@Model.Etfs[i].TypeName</td>
-                    <td class="d-flex">
+                    <td class="d-flex justify-content-center">
                         <form method="post" asp-controller="Investments" asp-action="Make">
                             <input type="hidden" name="etfId" value="@Model.Etfs[i].Id" />
                             <button class="btn btn-primary" type="submit">Invest</button>
                         </form>
-                        <form asp-controller="Etfs" asp-action="Delete">
-                            <input type="hidden" name="etfId" value="@Model.Etfs[i].Id" />
-                            <button class="btn btn-danger" type="submit">Delete</button>
-                        </form>
+                        @if (SessionManager.User != null)
+                        {
+                            <form asp-controller="Etfs" asp-action="Delete">
+                                <input type="hidden" name="etfId" value="@Model.Etfs[i].Id" />
+                                <button class="btn btn-danger" type="submit">Delete</button>
+                            </form>
+                        }
                     </td>
                 </tr>
             }
