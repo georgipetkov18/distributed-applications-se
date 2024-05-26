@@ -29,6 +29,12 @@ namespace WalletManagerApi.Controllers
             return this.Ok(await this._walletService.GetWalletAsync(id));
         }
 
+        [HttpGet("~/[controller]/Get/User/{id}")]
+        public async Task<IActionResult> GetByUser(Guid id)
+        {
+            return this.Ok(await this._walletService.GetWalletsByUserIdAsync(id));
+        }
+
         [HttpPost]
         public async Task<IActionResult> Add(CreateUpdateWalletRequest model)
         {

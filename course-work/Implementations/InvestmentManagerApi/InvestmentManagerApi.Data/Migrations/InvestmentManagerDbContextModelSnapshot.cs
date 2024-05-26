@@ -57,33 +57,33 @@ namespace InvestmentManagerApi.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("5a7cc6fe-52bb-4bf6-aec6-6c739c9ae70f"),
+                            Id = new Guid("08befb67-2d0a-4dcb-8ff4-edbb284da0e1"),
                             Code = "EUR",
-                            CreatedOn = new DateTime(2024, 5, 25, 10, 46, 59, 842, DateTimeKind.Utc).AddTicks(9412),
+                            CreatedOn = new DateTime(2024, 5, 26, 7, 36, 16, 386, DateTimeKind.Utc).AddTicks(6396),
                             IsActivated = true,
                             Name = "Euro",
                             ToEuroRate = 1m,
-                            UpdatedOn = new DateTime(2024, 5, 25, 10, 46, 59, 842, DateTimeKind.Utc).AddTicks(9414)
+                            UpdatedOn = new DateTime(2024, 5, 26, 7, 36, 16, 386, DateTimeKind.Utc).AddTicks(6399)
                         },
                         new
                         {
-                            Id = new Guid("6390d8d3-3b72-4ef3-ab8d-505828763952"),
+                            Id = new Guid("3c424249-3130-4a80-a459-ec99f7d693ef"),
                             Code = "BGN",
-                            CreatedOn = new DateTime(2024, 5, 25, 10, 46, 59, 842, DateTimeKind.Utc).AddTicks(9422),
+                            CreatedOn = new DateTime(2024, 5, 26, 7, 36, 16, 386, DateTimeKind.Utc).AddTicks(6408),
                             IsActivated = true,
                             Name = "Lev",
                             ToEuroRate = 1.95m,
-                            UpdatedOn = new DateTime(2024, 5, 25, 10, 46, 59, 842, DateTimeKind.Utc).AddTicks(9422)
+                            UpdatedOn = new DateTime(2024, 5, 26, 7, 36, 16, 386, DateTimeKind.Utc).AddTicks(6408)
                         },
                         new
                         {
-                            Id = new Guid("1f711a38-3192-4095-8a76-a2e25681b3e5"),
+                            Id = new Guid("90d7a8ea-a843-4a7b-9a6b-fa6fa75bf6f9"),
                             Code = "USD",
-                            CreatedOn = new DateTime(2024, 5, 25, 10, 46, 59, 842, DateTimeKind.Utc).AddTicks(9426),
+                            CreatedOn = new DateTime(2024, 5, 26, 7, 36, 16, 386, DateTimeKind.Utc).AddTicks(6424),
                             IsActivated = true,
                             Name = "American Dollar",
                             ToEuroRate = 0.93m,
-                            UpdatedOn = new DateTime(2024, 5, 25, 10, 46, 59, 842, DateTimeKind.Utc).AddTicks(9426)
+                            UpdatedOn = new DateTime(2024, 5, 26, 7, 36, 16, 386, DateTimeKind.Utc).AddTicks(6425)
                         });
                 });
 
@@ -199,6 +199,9 @@ namespace InvestmentManagerApi.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("Balance")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");

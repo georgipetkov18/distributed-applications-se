@@ -25,6 +25,17 @@ namespace InvestmentManagerApi.Shared.Middlewares
                 httpContext.Response.StatusCode = StatusCodes.Status404NotFound;
                 await httpContext.Response.WriteAsync(JsonConvert.SerializeObject(new { e.Message }));
             }
+            catch (ClientErrorException e)
+            {
+                httpContext.Response.Redirect(e.RedirectTo);
+            }
+
+            catch (ArgumentOutOfRangeException e)
+            {
+                httpContext.Response.ContentType = "application/json";
+                httpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
+                await httpContext.Response.WriteAsync(JsonConvert.SerializeObject(new { e.Message }));
+            }
         }
     }
 }

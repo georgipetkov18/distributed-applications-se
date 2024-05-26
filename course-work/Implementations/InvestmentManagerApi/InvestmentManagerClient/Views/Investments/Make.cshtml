@@ -1,0 +1,18 @@
+﻿@model GetWalletsResponse
+
+<form asp-controller="Investments" asp-action="Finalize">
+    <div class="form-group">
+        <label for="walletId">Wallet</label>
+        <select class="form-control" name="walletId">
+            @foreach (var wallet in Model.Wallets)
+            {
+                <option value="@wallet.Id">@wallet.Currency.Code</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="amount">Amount</label>
+        <input type="number" class="form-control" id="amount" name="amount" placeholder="amount" step="0.1">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

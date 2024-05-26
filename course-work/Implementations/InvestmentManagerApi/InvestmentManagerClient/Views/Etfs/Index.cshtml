@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model GetEtfsResponse
+
+<div class="text-center">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th>Name</th>
+                <th>Value</th>
+                <th>Type</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @for (int i = 0; i < Model.Etfs.Count; i++)
+            {
+                <tr>
+                    <th scope="row">@(i + 1)</th>
+                    <td>@Model.Etfs[i].Name</td>
+                    <td>@Model.Etfs[i].SingleValue</td>
+                    <td>@Model.Etfs[i].TypeName</td>
+                    <td>
+                        <form method="post" asp-controller="Investments" asp-action="Make">
+                            <input type="hidden" name="etfId" value="@Model.Etfs[i].Id" />
+                            <button class="btn btn-primary" type="submit">Invest</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

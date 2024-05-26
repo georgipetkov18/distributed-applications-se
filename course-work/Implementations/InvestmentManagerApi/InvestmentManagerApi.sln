@@ -5,11 +5,13 @@ VisualStudioVersion = 17.10.34916.146
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InvestmentManagerApi", "InvestmentManagerApi\InvestmentManagerApi.csproj", "{7D21249B-9C4A-4DA1-9613-88BC1D0F8650}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvestmentManagerApi.Data", "InvestmentManagerApi.Data\InvestmentManagerApi.Data.csproj", "{A9161693-F0E0-4AD9-A8BF-92982E239764}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InvestmentManagerApi.Data", "InvestmentManagerApi.Data\InvestmentManagerApi.Data.csproj", "{A9161693-F0E0-4AD9-A8BF-92982E239764}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvestmentManagerApi.Shared", "InvestmentManagerApi.Shared\InvestmentManagerApi.Shared.csproj", "{DF5A7DFD-7958-4AC3-B67A-AE91B1BFA3E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InvestmentManagerApi.Shared", "InvestmentManagerApi.Shared\InvestmentManagerApi.Shared.csproj", "{DF5A7DFD-7958-4AC3-B67A-AE91B1BFA3E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvestmentManagerApi.Business", "InvestmentManager.Business\InvestmentManagerApi.Business.csproj", "{B8F03BE8-8FEB-40DB-8CCE-A7896774622C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InvestmentManagerApi.Business", "InvestmentManager.Business\InvestmentManagerApi.Business.csproj", "{B8F03BE8-8FEB-40DB-8CCE-A7896774622C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvestmentManagerClient", "InvestmentManagerClient\InvestmentManagerClient.csproj", "{D49AFF90-64CD-4F18-A580-6CE5711C797B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{B8F03BE8-8FEB-40DB-8CCE-A7896774622C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8F03BE8-8FEB-40DB-8CCE-A7896774622C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8F03BE8-8FEB-40DB-8CCE-A7896774622C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D49AFF90-64CD-4F18-A580-6CE5711C797B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D49AFF90-64CD-4F18-A580-6CE5711C797B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D49AFF90-64CD-4F18-A580-6CE5711C797B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D49AFF90-64CD-4F18-A580-6CE5711C797B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

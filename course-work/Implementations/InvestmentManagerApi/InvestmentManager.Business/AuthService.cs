@@ -34,6 +34,7 @@ namespace InvestmentManagerApi.Business
             {
                 Subject = new(new Claim[]
                 {
+                    new("Id", user.Id.ToString()),
                     new(ClaimTypes.Email, email),
                     new(ClaimTypes.Name, $"{user.FirstName} {user.LastName}"),
                 }),
@@ -46,7 +47,7 @@ namespace InvestmentManagerApi.Business
             return new AuthResponse
             {
                 Token = handler.WriteToken(token),
-                ExpiresOn = tokenDescriptor.Expires,
+                ExpiresOn = tokenDescriptor.Expires ?? DateTime.UtcNow,
             };
         }
     }

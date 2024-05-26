@@ -8,6 +8,8 @@
         required public Guid CurrencyId { get; set; }
         public Currency Currency { get; set; }
 
+        required public decimal Balance { get; set; }
+
         public IEnumerable<Investment> Investments { get; set; }
 
         public Wallet()
