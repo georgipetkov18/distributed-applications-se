@@ -1,6 +1,7 @@
 ﻿using InvestmentManagerApi.Data.Entities;
 using InvestmentManagerApi.Data.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Web.Mvc;
 
 namespace InvestmentManagerApi.Data.Repositories
 {
@@ -52,6 +53,11 @@ namespace InvestmentManagerApi.Data.Repositories
                             .Skip(skipCount)
                             .Take(takeCount)
                             .ToListAsync();
+        }
+
+        public async Task<int> CountUserInvestmentsAsync(Guid userId, string filter)
+        {
+            return await this.PrepareGetAllQuery(filter).Where(i => i.Wallet.UserId == userId).CountAsync();
         }
     }
 }

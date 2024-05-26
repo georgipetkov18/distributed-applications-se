@@ -2,6 +2,7 @@
 using InvestmentManagerApi.Data.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace InvestmentManagerApi.Data.Repositories
 {
@@ -118,6 +119,11 @@ namespace InvestmentManagerApi.Data.Repositories
             {
                 entry.Property(excludeProperty).IsModified = false;
             }
+        }
+
+        public async Task<int> CountAsync(string filter)
+        {
+            return await SoftDeleteQueryFilter(PrepareGetAllQuery(filter), true).CountAsync();
         }
 
         public virtual async Task Save(T entity)

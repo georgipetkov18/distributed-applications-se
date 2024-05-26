@@ -55,7 +55,11 @@ namespace InvestmentManagerApi.Business
 
         public async Task<GetUsersResponse> GetUsersAsync(FilterParams parameters)
         {
-            var response = new GetUsersResponse() { Users = new() };
+            var response = new GetUsersResponse() 
+            {
+                Users = new(),
+                Count = await this._unitOfWork.Currencies.CountAsync(parameters.Filter)
+            };
             var users = await _unitOfWork.Users
                 .GetAllAsync(
                     skipCount: (parameters.Page - 1) * Constants.DEFAULT_PAGE_SIZE,

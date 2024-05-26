@@ -1,6 +1,6 @@
 ﻿namespace InvestmentManagerApi.Business.Responses.Investment
 {
-    public class GetInvestmentsResponse
+    public class GetInvestmentsResponse : PagedResponse
     {
         public List<InvestmentResponseDetailed> Investments { get; set; }
 

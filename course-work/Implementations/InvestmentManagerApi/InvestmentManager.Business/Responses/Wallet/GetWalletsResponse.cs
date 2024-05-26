@@ -1,6 +1,6 @@
 ﻿namespace InvestmentManagerApi.Business.Responses.Wallet
 {
-    public class GetWalletsResponse
+    public class GetWalletsResponse : PagedResponse
     {
         public List<WalletResponseDetailed> Wallets { get; set; }
 

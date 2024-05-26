@@ -20,6 +20,8 @@ namespace InvestmentManagerApi.Data.Repositories.Interfaces
 
         Task Save(T entity);
 
+        Task<int> CountAsync(string filter);
+
         void Delete(T entity);
 
         void Delete(Guid id);

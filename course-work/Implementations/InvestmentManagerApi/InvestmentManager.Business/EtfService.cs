@@ -21,7 +21,11 @@ namespace InvestmentManagerApi.Business
 
         public async Task<GetEtfsResponse> GetEtfsAsync(FilterParams parameters)
         {
-            var response = new GetEtfsResponse() { Etfs = new() };
+            var response = new GetEtfsResponse() 
+            { 
+                Etfs = new(),
+                Count = await this._unitOfWork.Etfs.CountAsync(parameters.Filter)
+            };
             var etfs = await _unitOfWork.Etfs
                 .GetAllAsync(
                     skipCount: (parameters.Page - 1) * Constants.DEFAULT_PAGE_SIZE,

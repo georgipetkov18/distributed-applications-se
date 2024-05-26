@@ -15,6 +15,7 @@ namespace InvestmentManagerClient.Controllers
         private readonly string _walletsUrl = "https://localhost:7160/wallets";
         private static GetWalletsResponse? walletsResponse;
         private static Guid etfId;
+        private static string filter = string.Empty;
         private readonly ILogger<InvestmentsController> _logger;
 
         public InvestmentsController(ILogger<InvestmentsController> logger)
@@ -57,10 +58,18 @@ namespace InvestmentManagerClient.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Mine()
+        public async Task<IActionResult> Mine(int page = 1)
         {
-            var myInvestments = await RequestManager.GetAsync<GetInvestmentsResponse>($"{_baseUri}/get/user/{SessionManager.User.Id}?page=1", true);
+            var myInvestments = await RequestManager.GetAsync<GetInvestmentsResponse>($"{_baseUri}/get/user/{SessionManager.User.Id}?page={page}&filter={filter}", true);
+            myInvestments.CurrentPage = page;
             return View(myInvestments);
+        }
+
+        [HttpPost]
+        public IActionResult Filter(FilterModel model)
+        {
+            filter = model.Filter ?? string.Empty;
+            return RedirectToAction("Mine");
         }
     }
 }

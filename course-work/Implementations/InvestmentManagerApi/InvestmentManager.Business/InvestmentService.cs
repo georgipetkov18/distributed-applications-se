@@ -54,7 +54,11 @@ namespace InvestmentManagerApi.Business
 
         public async Task<GetInvestmentsResponse> GetInvestmentsAsync(FilterParams parameters)
         {
-            var response = new GetInvestmentsResponse() { Investments = new() };
+            var response = new GetInvestmentsResponse() 
+            { 
+                Investments = new(),
+                Count = await this._unitOfWork.Currencies.CountAsync(parameters.Filter)
+            };
             var investments = await _unitOfWork.Investments.GetAllAsync(
                     skipCount: (parameters.Page - 1) * Constants.DEFAULT_PAGE_SIZE,
                     takeCount: Constants.DEFAULT_PAGE_SIZE,
@@ -70,7 +74,11 @@ namespace InvestmentManagerApi.Business
 
         public async Task<GetInvestmentsResponse> GetUserInvestmentsAsync(Guid userId, FilterParams parameters)
         {
-            var response = new GetInvestmentsResponse() { Investments = new() };
+            var response = new GetInvestmentsResponse()
+            {
+                Investments = new(),
+                Count = await this._unitOfWork.Investments.CountUserInvestmentsAsync(userId, parameters.Filter)
+            };
             var investments = await _unitOfWork.Investments.GetAllUserInvestmentsAsync(
                     userId: userId,
                     skipCount: (parameters.Page - 1) * Constants.DEFAULT_PAGE_SIZE,
