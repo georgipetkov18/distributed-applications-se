@@ -18,6 +18,8 @@ namespace InvestmentManagerApi.Data.Repositories.Interfaces
 
         Task ActivateDeactivate(int id);
 
+        Task Save(T entity);
+
         void Delete(T entity);
 
         void Delete(Guid id);

@@ -76,6 +76,13 @@ namespace InvestmentManagerClient.Controllers
             return Redirect("/");
         }
 
+        [HttpGet]
+        public IActionResult Logout()
+        {
+            SessionManager.ResetSession();
+            return Redirect("/");
+        }
+
         private async Task ExectureLogin(AuthRequest request)
         {
             var responseData = await RequestManager.PostAsync<AuthRequest, AuthResponse>($"{_baseUri}/auth", request, false, "/register");

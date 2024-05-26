@@ -23,7 +23,7 @@ namespace InvestmentManagerClient.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Make()
+        public IActionResult Make()
         {
             if (walletsResponse == null || etfId == Guid.Empty)
             {
@@ -53,8 +53,14 @@ namespace InvestmentManagerClient.Controllers
             await RequestManager.PostAsync<CreateUpdateInvestmentRequest, InvestmentResponseShort>($"{_baseUri}/add", request, true);
             walletsResponse = null;
             etfId = Guid.Empty;
-            // TODO: Create my investments page and redicet to it
-            return Ok();
+            return RedirectToAction("Mine");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Mine()
+        {
+            var myInvestments = await RequestManager.GetAsync<GetInvestmentsResponse>($"{_baseUri}/get/user/{SessionManager.User.Id}?page=1", true);
+            return View(myInvestments);
         }
     }
 }

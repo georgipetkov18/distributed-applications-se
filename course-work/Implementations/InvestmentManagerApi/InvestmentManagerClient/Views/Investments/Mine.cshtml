@@ -1,0 +1,27 @@
+﻿@model GetInvestmentsResponse
+<div class="text-center">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th>Etf Name</th>
+                <th>Etf Type</th>
+                <th>Quantity</th>
+                <th>Currency</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @for (int i = 0; i < Model.Investments.Count; i++)
+            {
+                <tr>
+                    <th scope="row">@(i + 1)</th>
+                    <td>@Model.Investments[i].Etf.Name</td>
+                    <td>@Model.Investments[i].Etf.TypeName</td>
+                    <td>@Model.Investments[i].Quantity</td>
+                    <td>@Model.Investments[i].Wallet.CurrencyCode</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

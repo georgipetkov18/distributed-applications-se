@@ -1,4 +1,5 @@
 ﻿using InvestmentManagerApi.Business.Interfaces;
+using InvestmentManagerApi.Business.Query;
 using InvestmentManagerApi.Business.Requests;
 using InvestmentManagerApi.Business.Responses.Investment;
 using InvestmentManagerApi.Data.Entities;
@@ -30,7 +31,7 @@ namespace InvestmentManagerApi.Business
                 IsActivated = true
             };
 
-            this._unitOfWork.Investments.Insert(investmentEntity);
+            await this._unitOfWork.Investments.Save(investmentEntity);
             var etf = await this._unitOfWork.Etfs.GetByIdAsync(request.EtfId) ?? throw new NotFoundException();
             await this._unitOfWork.Wallets.RemoveFundsAsync(request.WalletId, request.Quantity * etf.SingleValue);
             await _unitOfWork.SaveChangesAsync();
@@ -51,10 +52,30 @@ namespace InvestmentManagerApi.Business
             return InvestmentResponseDetailed.FromEntity(investment);
         }
 
-        public async Task<GetInvestmentsResponse> GetInvestmentsAsync(int page)
+        public async Task<GetInvestmentsResponse> GetInvestmentsAsync(FilterParams parameters)
         {
             var response = new GetInvestmentsResponse() { Investments = new() };
-            var investments = await _unitOfWork.Investments.GetAllAsync((page - 1) * Constants.DEFAULT_PAGE_SIZE, Constants.DEFAULT_PAGE_SIZE);
+            var investments = await _unitOfWork.Investments.GetAllAsync(
+                    skipCount: (parameters.Page - 1) * Constants.DEFAULT_PAGE_SIZE,
+                    takeCount: Constants.DEFAULT_PAGE_SIZE,
+                    filter: parameters.Filter);
+
+            foreach (var investment in investments)
+            {
+                response.Investments.Add(InvestmentResponseDetailed.FromEntity(investment));
+            }
+
+            return response;
+        }
+
+        public async Task<GetInvestmentsResponse> GetUserInvestmentsAsync(Guid userId, FilterParams parameters)
+        {
+            var response = new GetInvestmentsResponse() { Investments = new() };
+            var investments = await _unitOfWork.Investments.GetAllUserInvestmentsAsync(
+                    userId: userId,
+                    skipCount: (parameters.Page - 1) * Constants.DEFAULT_PAGE_SIZE,
+                    takeCount: Constants.DEFAULT_PAGE_SIZE,
+                    filter: parameters.Filter);
 
             foreach (var investment in investments)
             {
