@@ -5,6 +5,7 @@ using InvestmentManagerApi.Shared.Attributes;
 using InvestmentManagerApi.Shared.Utils;
 using InvestmentManagerClient.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace InvestmentManagerClient.Controllers
 {
@@ -60,7 +61,12 @@ namespace InvestmentManagerClient.Controllers
         [HttpGet]
         public async Task<IActionResult> Mine(int page = 1)
         {
-            var myInvestments = await RequestManager.GetAsync<GetInvestmentsResponse>($"{_baseUri}/get/user/{SessionManager.User.Id}?page={page}&filter={filter}", true);
+            var url = $"{_baseUri}/get/user/{SessionManager.User.Id}?page={page}";
+            if (!string.IsNullOrWhiteSpace(filter))
+            {
+                url += $"&filter={filter}";
+            }
+            var myInvestments = await RequestManager.GetAsync<GetInvestmentsResponse>(url, true);
             myInvestments.CurrentPage = page;
             return View(myInvestments);
         }
@@ -69,6 +75,13 @@ namespace InvestmentManagerClient.Controllers
         public IActionResult Filter(FilterModel model)
         {
             filter = model.Filter ?? string.Empty;
+            return RedirectToAction("Mine");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            await RequestManager.DeleteAsync($"{_baseUri}/delete/{id}", true);
             return RedirectToAction("Mine");
         }
     }

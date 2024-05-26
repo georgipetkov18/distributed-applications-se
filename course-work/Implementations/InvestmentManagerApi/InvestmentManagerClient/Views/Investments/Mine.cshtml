@@ -17,6 +17,7 @@
                 <th>Etf Value</th>
                 <th>Quantity</th>
                 <th>Currency</th>
+                <th></th>
             </tr>
         </thead>
 
@@ -30,6 +31,12 @@
                     <td>@Model.Investments[i].Etf.SingleValue</td>
                     <td>@Model.Investments[i].Quantity</td>
                     <td>@Model.Investments[i].WalletCurrency.Code</td>
+                    <td>
+                        <form asp-asp-controller="Investments" asp-action="Delete">
+                            <input type="hidden" name="id" value="@Model.Investments[i].Id"/>
+                            <button class="btn btn-danger" type="submit">Delete</button>
+                        </form>
+                    </td>
                 </tr>
             }
         </tbody>

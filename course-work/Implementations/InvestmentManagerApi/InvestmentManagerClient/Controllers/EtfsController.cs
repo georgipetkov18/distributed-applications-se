@@ -19,7 +19,12 @@ namespace InvestmentManagerClient.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(int page = 1)
         {
-            GetEtfsResponse responseData = await RequestManager.GetAsync<GetEtfsResponse>($"{_baseUri}/get?page={page}&filter={filter}");
+            var url = $"{_baseUri}/get?page={page}";
+            if (!string.IsNullOrWhiteSpace(filter))
+            {
+                url += $"&filter={filter}";
+            }
+            GetEtfsResponse responseData = await RequestManager.GetAsync<GetEtfsResponse>(url);
             responseData.CurrentPage = page;
             return View(responseData);
         }
@@ -28,6 +33,13 @@ namespace InvestmentManagerClient.Controllers
         public IActionResult Filter(FilterModel model)
         {
             filter = model.Filter ?? string.Empty;
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(Guid etfId)
+        {
+            await RequestManager.DeleteAsync($"{_baseUri}/delete/{etfId}", true);
             return RedirectToAction("Index");
         }
     }

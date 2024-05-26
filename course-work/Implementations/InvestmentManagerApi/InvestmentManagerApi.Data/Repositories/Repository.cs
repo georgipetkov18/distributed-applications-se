@@ -2,7 +2,6 @@
 using InvestmentManagerApi.Data.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace InvestmentManagerApi.Data.Repositories
 {

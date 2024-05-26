@@ -86,5 +86,25 @@ namespace InvestmentManagerApi.Shared.Utils
 
             return responseData;
         }
+
+        public static async Task DeleteAsync(string url, bool authorize = false)
+        {
+            using (HttpClient client = new())
+            {
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Add("Accept", "application/json");
+                if (authorize)
+                {
+                    client.DefaultRequestHeaders.Add("Authorization", $"Bearer {SessionManager.Token}");
+                }
+
+                HttpResponseMessage response = await client.DeleteAsync(url);
+                if (response.StatusCode == HttpStatusCode.NotFound || response.StatusCode == HttpStatusCode.BadRequest)
+                {
+                    throw new ClientErrorException();
+                }
+            }
+
+        }
     }
 }
