@@ -46,9 +46,15 @@ namespace InvestmentManagerApi.Shared.Utils
             SessionManager.expiresOn = expiresOn;
             var handler = new JwtSecurityTokenHandler();
             var jwtSecurityToken = handler.ReadJwtToken(token);
+
+            int? age = jwtSecurityToken.Claims.First(claim => claim.Type == "Age").Value != null ?
+                int.Parse(jwtSecurityToken.Claims.First(claim => claim.Type == "Age").Value) :
+                null;
+
             user = new User
             {
                 Id = Guid.Parse(jwtSecurityToken.Claims.First(claim => claim.Type == "Id").Value),
+                Age = age,
                 Email = jwtSecurityToken.Claims.First(claim => claim.Type == "email").Value,
                 Name = jwtSecurityToken.Claims.First(claim => claim.Type == "unique_name").Value,
             };

@@ -35,6 +35,7 @@ namespace InvestmentManagerApi.Business
                 Subject = new(new Claim[]
                 {
                     new("Id", user.Id.ToString()),
+                    new("Age", user.Age?.ToString()),
                     new(ClaimTypes.Email, email),
                     new(ClaimTypes.Name, $"{user.FirstName} {user.LastName}"),
                 }),

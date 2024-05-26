@@ -59,5 +59,33 @@ namespace InvestmentManagerApi.Shared.Utils
 
             return responseData;
         }
+
+        public static async Task<TResult> PatchAsync<TBody, TResult>(string url, TBody body, bool authorize = false, string redirectTo = null)
+        {
+            TResult responseData;
+            using (HttpClient client = new())
+            {
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Add("Accept", "application/json");
+                if (authorize)
+                {
+                    client.DefaultRequestHeaders.Add("Authorization", $"Bearer {SessionManager.Token}");
+                }
+                var content = new StringContent(JsonSerializer.Serialize(body), Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PatchAsync(url, content);
+                var jsonContent = await response.Content.ReadAsStringAsync();
+                if (response.StatusCode == HttpStatusCode.NotFound)
+                {
+                    if (redirectTo != null)
+                    {
+                        throw new ClientErrorException(redirectTo);
+                    }
+                    throw new ClientErrorException();
+                }
+                responseData = JsonSerializer.Deserialize<TResult>(jsonContent, new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
+            }
+
+            return responseData;
+        }
     }
 }

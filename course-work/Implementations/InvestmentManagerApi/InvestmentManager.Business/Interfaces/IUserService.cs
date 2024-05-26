@@ -10,6 +10,7 @@ namespace InvestmentManagerApi.Business.Interfaces
         Task<UserResponse> GetUserAsync(Guid id);
         Task<UserResponse> CreateUserAsync(CreateUpdateUserRequest request);
         Task<UserResponse> UpdateUserAsync(Guid id, CreateUpdateUserRequest request);
+        Task<UserResponse> UpdateUserAsync(Guid id, PatchUserRequest request);
         Task DeleteUserAsync(Guid id);
     }
 }

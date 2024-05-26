@@ -46,6 +46,13 @@ namespace UserManagerApi.Controllers
             return this.Ok(updatedEntity);
         }
 
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> Patch(Guid id, PatchUserRequest model)
+        {
+            var updatedEntity = await this._userService.UpdateUserAsync(id, model);
+            return this.Ok(updatedEntity);
+        }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {

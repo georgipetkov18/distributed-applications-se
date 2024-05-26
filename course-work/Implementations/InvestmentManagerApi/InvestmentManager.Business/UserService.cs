@@ -94,5 +94,32 @@ namespace InvestmentManagerApi.Business
             await this._unitOfWork.SaveChangesAsync();
             return UserResponse.FromEntity(userEntity);
         }
+
+        public async Task<UserResponse> UpdateUserAsync(Guid id, PatchUserRequest request)
+        {
+            var currentUser = await this._unitOfWork.Users.GetByIdAsync(id);
+
+            if (currentUser == null)
+            {
+                throw new NotFoundException();
+            }
+
+            var userEntity = new User
+            {
+                Id = id,
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                Age = request.Age,
+                Email = request.Email,
+                Password = request.Password == null ? currentUser.Password : PasswordManager.HashPassword(request.Password),
+                CreatedOn = DateTime.UtcNow,
+                UpdatedOn = DateTime.UtcNow,
+                IsActivated = true,
+            };
+
+            await this._unitOfWork.Users.UpdateAsync(userEntity);
+            await this._unitOfWork.SaveChangesAsync();
+            return UserResponse.FromEntity(userEntity);
+        }
     }
 }

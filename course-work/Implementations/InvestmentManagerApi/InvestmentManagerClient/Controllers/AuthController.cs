@@ -1,16 +1,11 @@
-﻿using Azure.Core;
-using InvestmentManagerApi.Business.Requests;
+﻿using InvestmentManagerApi.Business.Requests;
 using InvestmentManagerApi.Business.Responses.Auth;
 using InvestmentManagerApi.Business.Responses.Currency;
-using InvestmentManagerApi.Business.Responses.Investment;
 using InvestmentManagerApi.Business.Responses.Wallet;
 using InvestmentManagerApi.Shared.Utils;
 using InvestmentManagerClient.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
-using System.Text;
-using System.Text.Json;
 
 namespace InvestmentManagerClient.Controllers
 {
@@ -19,9 +14,9 @@ namespace InvestmentManagerClient.Controllers
     public class AuthController : Controller
     {
         private readonly string _baseUri = "https://localhost:7160";
-        private readonly ILogger<EtfsController> _logger;
+        private readonly ILogger<AuthController> _logger;
 
-        public AuthController(ILogger<EtfsController> logger)
+        public AuthController(ILogger<AuthController> logger)
         {
             _logger = logger;
         }
@@ -64,7 +59,7 @@ namespace InvestmentManagerClient.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Login()
+        public IActionResult Login()
         {
             return View();
         }

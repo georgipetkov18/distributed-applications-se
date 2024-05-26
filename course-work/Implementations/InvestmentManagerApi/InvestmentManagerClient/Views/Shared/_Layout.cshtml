@@ -1,5 +1,4 @@
-﻿@using InvestmentManagerApi.Shared.Utils
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -41,7 +40,7 @@
                         @if (@SessionManager.User != null)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Etfs" asp-action="Index">Hello, @SessionManager.User.Name</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Profile">Hello, @SessionManager.User.Name</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Logout">Log Out</a>
@@ -70,7 +69,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - InvestmentManagerClient - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2024 - InvestmentManagerClient
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

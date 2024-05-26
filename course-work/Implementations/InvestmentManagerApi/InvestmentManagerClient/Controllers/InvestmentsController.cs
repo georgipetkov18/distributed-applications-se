@@ -15,9 +15,9 @@ namespace InvestmentManagerClient.Controllers
         private readonly string _walletsUrl = "https://localhost:7160/wallets";
         private static GetWalletsResponse? walletsResponse;
         private static Guid etfId;
-        private readonly ILogger<EtfsController> _logger;
+        private readonly ILogger<InvestmentsController> _logger;
 
-        public InvestmentsController(ILogger<EtfsController> logger)
+        public InvestmentsController(ILogger<InvestmentsController> logger)
         {
             _logger = logger;
         }
