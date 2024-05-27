@@ -1,8 +1,11 @@
-﻿using InvestmentManagerApi.Business.Responses.Etf;
+﻿using InvestmentManagerApi.Business.Requests;
+using InvestmentManagerApi.Business.Responses.Etf;
+using InvestmentManagerApi.Business.Responses.Etf.Type;
 using InvestmentManagerApi.Shared.Attributes;
 using InvestmentManagerApi.Shared.Utils;
 using InvestmentManagerClient.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace InvestmentManagerClient.Controllers
 {
@@ -42,6 +45,21 @@ namespace InvestmentManagerClient.Controllers
         public async Task<IActionResult> Delete(Guid etfId)
         {
             await RequestManager.DeleteAsync($"{_baseUri}/delete/{etfId}", true);
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> New()
+        {
+            var responseData = await RequestManager.GetAsync<GetTypesResponse>($"{_baseUri}/types");
+            return View(responseData);
+        }
+
+        [HttpPost]
+        [AppAuthorize]
+        public async Task<IActionResult> New(CreateUpdateEtfRequest request)
+        {
+            await RequestManager.PostAsync<CreateUpdateEtfRequest, EtfResponse>($"{_baseUri}/add/", request, true);
             return RedirectToAction("Index");
         }
     }

@@ -3,7 +3,10 @@
 }
 @model GetEtfsResponse
 
-
+@if (SessionManager.User != null)
+{
+    <a class="btn btn-success mb-3" asp-controller="Etfs" asp-action="New">Add new ETF</a>
+}
 <form class="container mt-4 mb-4" asp-controller="Etfs" asp-action="Filter">
     <div class="input-group">
         <input type="text" class="form-control" name="filter" id="filter" placeholder="Filter">

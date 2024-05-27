@@ -1,6 +1,8 @@
 ﻿using InvestmentManagerApi.Business.Interfaces;
 using InvestmentManagerApi.Business.Query;
 using InvestmentManagerApi.Business.Requests;
+using InvestmentManagerApi.Business.Responses.Etf.Type;
+using InvestmentManagerApi.Shared.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,6 +32,23 @@ namespace InvestmentManagerApi.Controllers
         public async Task<IActionResult> Get(Guid id)
         {
             return this.Ok(await this._etfService.GetEtfAsync(id));
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public IActionResult Types()
+        {
+            var response = new GetTypesResponse();
+
+            foreach (var value in Enum.GetNames(typeof(EtfType)))
+            {
+                if (Enum.TryParse(value, out EtfType parsed))
+                {
+                    response.Types.Add((int)parsed, value);
+                }
+            }
+
+            return Ok(response);
         }
 
         [HttpPost]
