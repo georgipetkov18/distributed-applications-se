@@ -24,7 +24,7 @@ namespace InvestmentManagerClient.Controllers
         [HttpGet]
         public async Task<IActionResult> Register()
         {
-            var currencies = await RequestManager.GetAsync<GetCurrenciesResponse>($"{_baseUri}/currencies/get");
+            var currencies = await RequestManager.GetAsync<GetCurrenciesResponse>($"{_baseUri}/currencies/get?skipPaging=true");
             return View(currencies);
         }
 

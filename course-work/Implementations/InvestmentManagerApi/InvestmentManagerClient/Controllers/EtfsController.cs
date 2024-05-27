@@ -1,6 +1,7 @@
 ﻿using InvestmentManagerApi.Business.Requests;
 using InvestmentManagerApi.Business.Responses.Etf;
 using InvestmentManagerApi.Business.Responses.Etf.Type;
+using InvestmentManagerApi.Shared;
 using InvestmentManagerApi.Shared.Attributes;
 using InvestmentManagerApi.Shared.Utils;
 using InvestmentManagerClient.Models;

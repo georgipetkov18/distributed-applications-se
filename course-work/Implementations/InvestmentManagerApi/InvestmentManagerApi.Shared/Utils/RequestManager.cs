@@ -45,7 +45,7 @@ namespace InvestmentManagerApi.Shared.Utils
                 var content = new StringContent(JsonSerializer.Serialize(body), Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PostAsync(url, content);
                 var jsonContent = await response.Content.ReadAsStringAsync();
-                if (response.StatusCode == HttpStatusCode.NotFound)
+                if (response.StatusCode == HttpStatusCode.NotFound || response.StatusCode == HttpStatusCode.BadRequest)
                 {
                     if (redirectTo != null) 
                     {
@@ -73,7 +73,7 @@ namespace InvestmentManagerApi.Shared.Utils
                 var content = new StringContent(JsonSerializer.Serialize(body), Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PatchAsync(url, content);
                 var jsonContent = await response.Content.ReadAsStringAsync();
-                if (response.StatusCode == HttpStatusCode.NotFound)
+                if (response.StatusCode == HttpStatusCode.NotFound || response.StatusCode == HttpStatusCode.BadRequest)
                 {
                     if (redirectTo != null)
                     {

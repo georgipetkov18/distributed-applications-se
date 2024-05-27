@@ -46,14 +46,18 @@ namespace InvestmentManagerApi.Business
 
         public async Task<GetCurrenciesResponse> GetCurrenciesAsync(FilterParams parameters)
         {
-            var response = new GetCurrenciesResponse() 
-            { 
+            var count = await this._unitOfWork.Currencies.CountAsync(parameters.Filter);
+            var response = new GetCurrenciesResponse()
+            {
                 Currencies = new(),
-                Count = await this._unitOfWork.Currencies.CountAsync(parameters.Filter)
+                Count = count
             };
-            var currencies = await _unitOfWork.Currencies
+
+            var currencies = parameters.SkipPaging ? 
+                await _unitOfWork.Currencies.GetAllAsync(0, count, parameters.Filter) :
+                await _unitOfWork.Currencies
                 .GetAllAsync(
-                    skipCount: (parameters.Page - 1) * Constants.DEFAULT_PAGE_SIZE, 
+                    skipCount: (parameters.Page - 1) * Constants.DEFAULT_PAGE_SIZE,
                     takeCount: Constants.DEFAULT_PAGE_SIZE,
                     filter: parameters.Filter
                 );

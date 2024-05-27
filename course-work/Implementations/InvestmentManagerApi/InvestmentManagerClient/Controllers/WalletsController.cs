@@ -1,5 +1,4 @@
-﻿using Azure.Core;
-using InvestmentManagerApi.Business.Requests;
+﻿using InvestmentManagerApi.Business.Requests;
 using InvestmentManagerApi.Business.Responses.Currency;
 using InvestmentManagerApi.Business.Responses.Wallet;
 using InvestmentManagerApi.Shared.Attributes;
@@ -23,7 +22,7 @@ namespace InvestmentManagerClient.Controllers
         [HttpGet]
         public async Task<IActionResult> New()
         {
-            var currencies = await RequestManager.GetAsync<GetCurrenciesResponse>($"https://localhost:7160/currencies/get", true);
+            var currencies = await RequestManager.GetAsync<GetCurrenciesResponse>($"https://localhost:7160/currencies/get?skipPaging=true", true);
             return View(currencies);
         }
 
