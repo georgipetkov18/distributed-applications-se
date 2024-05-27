@@ -119,5 +119,21 @@ namespace InvestmentManagerApi.Business
             await this._unitOfWork.SaveChangesAsync();
             return WalletResponseShort.FromEntity(walletEntity);
         }
+
+        public async Task<WalletResponseShort> DepositAsync(ChangeBalanceRequest request)
+        {
+            await this._unitOfWork.Wallets.AddFundsAsync(request.WalletId, request.Amount);
+            await this._unitOfWork.SaveChangesAsync();
+            var wallet = await this._unitOfWork.Wallets.GetByIdAsync(request.WalletId);
+            return WalletResponseShort.FromEntity(wallet);
+        }
+
+        public async Task<WalletResponseShort> WithdrawAsync(ChangeBalanceRequest request)
+        {
+            await this._unitOfWork.Wallets.RemoveFundsAsync(request.WalletId, request.Amount);
+            await this._unitOfWork.SaveChangesAsync();
+            var wallet = await this._unitOfWork.Wallets.GetByIdAsync(request.WalletId);
+            return WalletResponseShort.FromEntity(wallet);
+        }
     }
 }

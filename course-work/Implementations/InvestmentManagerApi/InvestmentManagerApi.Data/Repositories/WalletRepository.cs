@@ -27,16 +27,25 @@ namespace InvestmentManagerApi.Data.Repositories
             return amount >= wallet.Balance;
         }
 
-        public async Task AddFundsAsync(Guid id, decimal amount)
+        public async Task AddFundsAsync(Guid id, decimal amount, bool convertFromEuro = false)
         {
             var wallet = await this.GetByIdAsync(id);
-            wallet.Balance += wallet.Currency.ToEuroRate * amount;
+            if (convertFromEuro)
+            {
+                amount *= wallet.Currency.ToEuroRate;
+            }
+            wallet.Balance += amount;
         }
 
-        public async Task RemoveFundsAsync(Guid id, decimal amount)
+        public async Task RemoveFundsAsync(Guid id, decimal amount, bool convertFromEuro = false)
         {
             var wallet = await this.GetByIdAsync(id);
-            var newBalance = wallet.Balance - wallet.Currency.ToEuroRate * amount;
+            if (convertFromEuro)
+            {
+                amount *= wallet.Currency.ToEuroRate;
+            }
+
+            var newBalance = wallet.Balance - amount;
             if (newBalance < 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(newBalance), "Insufficient funds");

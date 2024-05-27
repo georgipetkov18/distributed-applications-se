@@ -13,6 +13,8 @@ namespace InvestmentManagerApi.Business.Interfaces
         Task<GetWalletsResponse> GetWalletsByUserIdAsync(Guid userId);
         Task<WalletResponseShort> CreateWalletAsync(CreateUpdateWalletRequest request);
         Task<WalletResponseShort> UpdateWalletAsync(Guid id, CreateUpdateWalletRequest request);
+        Task<WalletResponseShort> DepositAsync(ChangeBalanceRequest request);
+        Task<WalletResponseShort> WithdrawAsync(ChangeBalanceRequest request);
         Task DeleteWalletAsync(Guid id);
     }
 }

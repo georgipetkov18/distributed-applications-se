@@ -9,6 +9,7 @@
                 <th>Balance</th>
                 <th>Code</th>
                 <th>Name</th>
+                <th></th>
             </tr>
         </thead>
 
@@ -20,6 +21,11 @@
                     <td>@Model.Wallets[i].Balance</td>
                     <td>@Model.Wallets[i].Currency.Code</td>
                     <td>@Model.Wallets[i].Currency.Name</td>
+                    <td>
+                        <a class="btn btn-primary" asp-controller="Wallets" asp-action="Funds" asp-route-id="@Model.Wallets[i].Id">
+                            Manage balance
+                        </a>
+                    </td>
                 </tr>
             }
         </tbody>

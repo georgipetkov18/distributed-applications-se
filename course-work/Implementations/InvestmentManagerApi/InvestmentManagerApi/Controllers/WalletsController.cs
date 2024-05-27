@@ -42,6 +42,18 @@ namespace WalletManagerApi.Controllers
             return this.Ok(await this._walletService.CreateWalletAsync(model));
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Deposit(ChangeBalanceRequest request)
+        {
+            return this.Ok(await this._walletService.DepositAsync(request));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Withdraw(ChangeBalanceRequest request)
+        {
+            return this.Ok(await this._walletService.WithdrawAsync(request));
+        }
+
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(Guid id, CreateUpdateWalletRequest model)
         {

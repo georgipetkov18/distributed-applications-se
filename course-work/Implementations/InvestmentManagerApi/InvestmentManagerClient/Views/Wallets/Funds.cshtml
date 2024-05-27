@@ -1,0 +1,8 @@
+﻿<form method="post">
+    <div class="form-group">
+        <label for="amount">Amount</label>
+        <input type="number" class="form-control" id="amount" name="amount" placeholder="Amount" step="0.01">
+    </div>
+    <button class="btn btn-success" type="submit" name="deposit" asp-controller="Wallets" asp-action="Deposit">Deposit</button>
+    <button class="btn btn-danger" type="submit" name="withdraw" asp-controller="Wallets" asp-action="Withdraw">Withdraw</button>
+</form>

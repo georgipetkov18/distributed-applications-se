@@ -33,7 +33,7 @@ namespace InvestmentManagerApi.Business
 
             await this._unitOfWork.Investments.Save(investmentEntity);
             var etf = await this._unitOfWork.Etfs.GetByIdAsync(request.EtfId) ?? throw new NotFoundException();
-            await this._unitOfWork.Wallets.RemoveFundsAsync(request.WalletId, request.Quantity * etf.SingleValue);
+            await this._unitOfWork.Wallets.RemoveFundsAsync(request.WalletId, request.Quantity * etf.SingleValue, true);
             await _unitOfWork.SaveChangesAsync();
 
             return InvestmentResponseShort.FromEntity(investmentEntity);
